@@ -8,11 +8,12 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
 
   return {
     rules: [
+      // Default: allow all crawlers
       {
         userAgent: '*',
         allow: '/',
       },
-      // Allow AI crawlers for E-E-A-T
+      // ── AI Retrieval Bots (power AI search results) ──
       {
         userAgent: 'GPTBot',
         allow: '/',
@@ -22,7 +23,44 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
         allow: '/',
       },
       {
+        userAgent: 'OAI-SearchBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'ClaudeBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'Claude-Web',
+        allow: '/',
+      },
+      {
+        userAgent: 'PerplexityBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'Applebot-Extended',
+        allow: '/',
+      },
+      {
+        userAgent: 'Bytespider',
+        allow: '/',
+      },
+      // ── AI Training Bots (maximizes visibility in AI models) ──
+      {
         userAgent: 'Google-Extended',
+        allow: '/',
+      },
+      {
+        userAgent: 'CCBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'cohere-ai',
+        allow: '/',
+      },
+      {
+        userAgent: 'Meta-ExternalAgent',
         allow: '/',
       },
     ],
