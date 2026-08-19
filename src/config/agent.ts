@@ -56,7 +56,7 @@ export const AGENT = {
   shortBio:
     'With over 20 years of experience in the Las Vegas luxury real estate market, Dr. Jan Duffy brings unmatched expertise, market knowledge, and personalized service to every client.',
   credentials: [
-    'PhD in Business Administration',
+    'PhD Researcher',
     'Certified Luxury Home Marketing Specialist (CLHMS)',
     'Over $500M in career sales',
     'Top 1% of Las Vegas REALTORS®',
