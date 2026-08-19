@@ -1,16 +1,22 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Allow all domains since this serves 80+ hostnames
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'imagedelivery.net' },
       { protocol: 'https', hostname: '**.cloudflare.com' },
     ],
   },
-  // Disable x-powered-by for security
   poweredByHeader: false,
-  // Headers for performance + security
+  trailingSlash: false,
+  async rewrites() {
+    return [
+      {
+        source: '/google:file.html',
+        destination: '/api/gsc-file',
+      },
+    ];
+  },
   async headers() {
     return [
       {
@@ -23,6 +29,18 @@ const nextConfig: NextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(self)',
           },
+        ],
+      },
+      {
+        source: '/sitemap.xml',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600' },
+        ],
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600' },
         ],
       },
     ];

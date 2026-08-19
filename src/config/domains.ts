@@ -34,18 +34,24 @@ export interface DomainConfig {
 
 /** Default config used when hostname isn't mapped */
 export const DEFAULT_CONFIG: DomainConfig = {
-  name: 'Las Vegas Real Estate',
-  neighborhood: 'Las Vegas',
+  name: 'Dr. Duffy Sells Homes',
+  neighborhood: 'Las Vegas Valley',
   city: 'Las Vegas',
   state: 'NV',
   zip: '89134',
   description:
-    'Search homes for sale in Las Vegas with Dr. Jan Duffy, REALTOR® at Berkshire Hathaway HomeServices. Luxury homes, new construction, and 55+ communities.',
-  keywords: ['Las Vegas homes', 'real estate', 'homes for sale', 'luxury homes', 'BHHS'],
+    'Sell your Las Vegas home with Dr. Jan Duffy, REALTOR® at Berkshire Hathaway HomeServices Nevada Properties. Neighborhood listing plans for Summerlin, Skye Canyon, Henderson, Centennial Hills, and every major valley community.',
+  keywords: [
+    'sell home Las Vegas',
+    'Las Vegas listing agent',
+    'home valuation Las Vegas',
+    'Summerlin listing agent',
+    'BHHS Nevada Properties',
+  ],
   focus: 'general',
-  heroTitle: 'Find Your Perfect Las Vegas Home',
+  heroTitle: 'Sell Your Las Vegas Home',
   heroSubtitle:
-    'Expert guidance from Dr. Jan Duffy — over 20 years helping families find their dream home in the Las Vegas Valley.',
+    'A listing plan for your neighborhood — street-level comps, marketing that names the community, and a launch built to get offers.',
 };
 
 /**
@@ -68,11 +74,11 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
   'centennialhillshomesforsale.com': {
     name: 'Centennial Hills Homes',
     neighborhood: 'Centennial Hills',
-    description: 'Search homes for sale in Centennial Hills, Las Vegas. Family-friendly neighborhoods with top-rated schools.',
+    description: 'Homes for sale in Centennial Hills, Las Vegas. Parks, US-95 access, and northwest listing comps.',
     keywords: ['Centennial Hills', 'Centennial Hills homes', 'North Las Vegas homes'],
     focus: 'family',
-    heroTitle: 'Centennial Hills Homes for Sale',
-    heroSubtitle: 'Top-rated schools, parks, and family-friendly neighborhoods in Northwest Las Vegas.',
+    heroTitle: 'Sell Your Centennial Hills Home',
+    heroSubtitle: 'Northwest Las Vegas listings priced to the tract — parks, US-95 access, and same-plan comps.',
   },
 
   'consenzaestates.com': {
@@ -147,7 +153,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     keywords: ['Lone Mountain', 'Lone Mountain homes', 'Las Vegas mountain homes'],
     focus: 'family',
     heroTitle: 'Lone Mountain Homes for Sale',
-    heroSubtitle: 'Mountain living in the heart of Las Vegas — trails, views, and family-friendly neighborhoods.',
+    heroSubtitle: 'Mountain living in northwest Las Vegas — trails, views, and tract-level listing comps.',
   },
 
   'mountainedgehomes.com': {
@@ -330,11 +336,18 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
   'drduffysellshomes.com': {
     name: 'Dr. Duffy Sells Homes',
     neighborhood: 'Las Vegas Valley',
-    description: 'Selling your Las Vegas home? Dr. Duffy\'s proven marketing system gets top dollar.',
-    keywords: ['sell home Las Vegas', 'listing agent Las Vegas', 'Dr Duffy sells'],
+    description:
+      'Sell your home in Summerlin, Skye Canyon, Centennial Hills, Henderson, Southern Highlands, and every Las Vegas neighborhood. Dr. Jan Duffy lists to the buyers already searching your community.',
+    keywords: [
+      'sell home Las Vegas',
+      'listing agent Las Vegas',
+      'Dr Duffy sells homes',
+      'Las Vegas neighborhood listing agent',
+    ],
     focus: 'general',
-    heroTitle: 'Sell Your Home with Dr. Duffy',
-    heroSubtitle: 'Proven marketing strategies that get Las Vegas homes sold faster and for more money.',
+    heroTitle: 'Sell Your Las Vegas Neighborhood Home',
+    heroSubtitle:
+      'One listing plan per community. Comps, photos, and ads built for the neighborhood buyers already filter for.',
   },
 
   'heritagestoneridgevalue.com': {
@@ -489,7 +502,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
   'lasvegasfamilyhomes.com': {
     name: 'Las Vegas Family Homes',
     neighborhood: 'Las Vegas Valley',
-    description: 'Family homes for sale in Las Vegas. Top-rated school districts and kid-friendly neighborhoods.',
+    description: 'Sell a home in Las Vegas with square footage, lot, and commute as the listing story — not a generic valley flyer.',
     keywords: ['family homes Las Vegas', 'best schools Las Vegas', 'family neighborhoods'],
     focus: 'family',
     heroTitle: 'Las Vegas Family Homes',

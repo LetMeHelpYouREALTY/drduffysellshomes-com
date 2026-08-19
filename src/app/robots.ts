@@ -1,19 +1,28 @@
 import type { MetadataRoute } from 'next';
-import { headers } from 'next/headers';
+import { getSiteUrl } from '@/lib/siteUrl';
+
+export const dynamic = 'force-dynamic';
 
 export default async function robots(): Promise<MetadataRoute.Robots> {
-  const headersList = await headers();
-  const host = headersList.get('x-forwarded-host') || headersList.get('host') || 'localhost';
-  const baseUrl = `https://${host.split(':')[0]}`;
+  const baseUrl = await getSiteUrl();
+  const host = new URL(baseUrl).host;
 
   return {
     rules: [
-      // Default: allow all crawlers
       {
         userAgent: '*',
         allow: '/',
+        disallow: ['/api/', '/google-verification'],
       },
-      // ── AI Retrieval Bots (power AI search results) ──
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: ['/api/'],
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/',
+      },
       {
         userAgent: 'GPTBot',
         allow: '/',
@@ -31,39 +40,15 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
         allow: '/',
       },
       {
-        userAgent: 'Claude-Web',
-        allow: '/',
-      },
-      {
         userAgent: 'PerplexityBot',
         allow: '/',
       },
       {
-        userAgent: 'Applebot-Extended',
-        allow: '/',
-      },
-      {
-        userAgent: 'Bytespider',
-        allow: '/',
-      },
-      // ── AI Training Bots (maximizes visibility in AI models) ──
-      {
-        userAgent: 'Google-Extended',
-        allow: '/',
-      },
-      {
-        userAgent: 'CCBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'cohere-ai',
-        allow: '/',
-      },
-      {
-        userAgent: 'Meta-ExternalAgent',
+        userAgent: 'Bingbot',
         allow: '/',
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
+    host,
   };
 }

@@ -1,108 +1,167 @@
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { AGENT } from '@/config/agent';
+import {
+  findNeighborhoodForName,
+  getAllNeighborhoods,
+} from '@/config/neighborhoods';
 import Hero from '@/components/Hero';
 import { RealScoutListings } from '@/components/RealScoutWidget';
+import NeighborhoodGrid from '@/components/NeighborhoodGrid';
+import SellerProcess from '@/components/SellerProcess';
+import SellerCta from '@/components/SellerCta';
+import FaqSection from '@/components/FaqSection';
+import { getSellerFaqs } from '@/lib/sellerCopy';
+
+export const revalidate = 3600;
 
 export default async function HomePage() {
   const config = await getDomainConfig();
+  const neighborhood = findNeighborhoodForName(config.neighborhood);
+  const place = neighborhood?.name ?? config.neighborhood;
+  const allNeighborhoods = getAllNeighborhoods();
 
   return (
     <>
-      <Hero config={config} />
+      <Hero config={config} neighborhood={neighborhood} />
 
-      {/* Features / Why Choose Section */}
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-4">
-              Why Work with {AGENT.name}?
+              Why {place} Sellers List with {AGENT.name}
             </h2>
             <p className="text-lg text-primary-600 max-w-2xl mx-auto">
-              When it comes to {config.neighborhood} real estate, experience and local knowledge make all the difference.
+              {neighborhood
+                ? neighborhood.sellingAngle
+                : `Selling in ${place} is not the same as selling “a Las Vegas home.” We list to the buyers already filtering for your community.`}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: '🏆',
-                title: 'Top 1% REALTOR®',
-                desc: `Consistently ranked in the top 1% of Las Vegas REALTORS® with over $500M in career sales. Chairman's Circle award recipient.`,
+                title: 'Street-level pricing',
+                desc: `We pull closed ${place} sales that match your plan, lot, and condition. A valley median is not a list price.`,
               },
               {
-                icon: '📊',
-                title: 'Market Expert',
-                desc: `Deep knowledge of ${config.neighborhood} market trends, pricing, and inventory. Data-driven strategies for buyers and sellers.`,
+                title: 'Neighborhood marketing',
+                desc: `Photos, remarks, and ads name ${place} amenities and commute — the filters buyers already use.`,
               },
               {
-                icon: '🤝',
-                title: 'Concierge Service',
-                desc: 'From first showing to closing and beyond — personalized service that continues after the sale with our Forever Concierge program.',
+                title: 'Live competition watch',
+                desc: `While you are on the market we track new ${place} listings so you are not blindsided by a price cut next door.`,
               },
               {
-                icon: '🔑',
-                title: 'Exclusive Access',
-                desc: 'Access to off-market listings, pocket listings, and new construction opportunities before they hit the MLS.',
+                title: 'Luxury & production playbooks',
+                desc: 'Guard-gated estates and tract homes do not share a flyer. We pick the playbook your address actually needs.',
               },
               {
-                icon: '🏠',
-                title: 'Neighborhood Specialist',
-                desc: `${config.neighborhood} is our specialty. Schools, amenities, HOA details, and future development — we know it all.`,
+                title: 'Net-sheet before you sign',
+                desc: 'You see estimated closing costs, payoff, and net before the listing agreement — then we update it with every offer.',
               },
               {
-                icon: '💰',
-                title: 'Best Negotiator',
-                desc: 'PhD in Business Administration and decades of negotiation experience ensure you get the best possible deal.',
+                title: 'BHHS reach, local listing',
+                desc: `${AGENT.brokerage} tools plus a listing agent who sells ${place} every week. Call ${AGENT.phone}.`,
               },
             ].map((feature) => (
               <div
                 key={feature.title}
-                className="p-6 rounded-xl border border-primary-100 hover:border-bhhs-gold/30 hover:shadow-lg transition-all duration-300 group"
+                className="p-6 rounded-xl border border-primary-100 hover:border-bhhs-gold/30 hover:shadow-lg transition-all duration-300"
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-lg font-display font-bold text-primary-900 mb-2 group-hover:text-bhhs-maroon transition-colors">
+                <h3 className="text-lg font-display font-bold text-primary-900 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-primary-600 leading-relaxed">
-                  {feature.desc}
-                </p>
+                <p className="text-sm text-primary-600 leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* RealScout Listings Widget Placeholder */}
+      {neighborhood && (
+        <section className="section-padding bg-bhhs-cream">
+          <div className="container-wide mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl font-display font-bold text-primary-900 mb-4">
+                What Buyers Pay For in {neighborhood.name}
+              </h2>
+              <p className="text-primary-700 leading-relaxed mb-6">{neighborhood.intro}</p>
+              <p className="text-primary-700 leading-relaxed mb-6">{neighborhood.marketingPlan}</p>
+              <p className="text-sm text-primary-600">
+                <span className="font-semibold">Commute:</span> {neighborhood.commute}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
+                Amenities we put in your listing
+              </h3>
+              <ul className="space-y-3 mb-8">
+                {neighborhood.amenities.map((item) => (
+                  <li key={item} className="flex gap-3 text-primary-700">
+                    <span className="text-bhhs-gold font-bold">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
+                {neighborhood.name} listing tips
+              </h3>
+              <ul className="space-y-3">
+                {neighborhood.listingTips.map((tip) => (
+                  <li key={tip} className="text-sm text-primary-700 leading-relaxed">
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`/neighborhoods/${neighborhood.slug}`}
+                className="inline-block mt-8 btn-primary"
+              >
+                Full {neighborhood.name} selling guide
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="section-padding bg-primary-50">
         <div className="container-wide mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-4">
-              Featured {config.neighborhood} Homes
+              Active {place} Listings — Your Competition
             </h2>
-            <p className="text-lg text-primary-600">
-              Browse the latest listings — updated in real time from the MLS.
+            <p className="text-lg text-primary-600 max-w-2xl mx-auto">
+              Buyers touring this weekend will open these homes next. We price and stage yours
+              against this set. MLS data from the Greater Las Vegas Association of REALTORS®.
             </p>
           </div>
-          {/* Worker injects RealScout listing widget into these elements */}
           <RealScoutListings status="active" numResults="6" />
           <div className="mt-8 text-center">
             <a href="/listings" className="btn-primary">
-              View All {config.neighborhood} Listings
+              See every {place} active
             </a>
           </div>
         </div>
       </section>
 
-      {/* About Snippet */}
+      <SellerProcess neighborhood={place} />
+
+      <NeighborhoodGrid
+        neighborhoods={allNeighborhoods}
+        heading="Sell Your Home in Every Las Vegas Neighborhood"
+        intro="Each community has its own buyer pool, HOA facts, and comparable set. Pick your neighborhood for a listing plan written for that map — not a generic Las Vegas flyer."
+      />
+
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-6">
-                Meet {AGENT.name}
+                The listing agent who sells {place}
               </h2>
               <p className="text-lg text-primary-600 leading-relaxed mb-6">
-                {AGENT.shortBio}
+                {AGENT.shortBio} {AGENT.name} lists homes in {place} and across Summerlin,
+                Henderson, North Las Vegas, and the northwest and southwest corridors.
               </p>
               <ul className="space-y-3 mb-8">
                 {AGENT.credentials.slice(0, 4).map((cred) => (
@@ -123,7 +182,7 @@ export default async function HomePage() {
                 ))}
               </ul>
               <a href="/about" className="btn-secondary">
-                Learn More About Dr. Duffy
+                Why sellers hire Dr. Duffy
               </a>
             </div>
             <div className="relative">
@@ -131,7 +190,7 @@ export default async function HomePage() {
                 {AGENT.headshotUrl ? (
                   <img
                     src={AGENT.headshotUrl}
-                    alt={`${AGENT.name} — ${AGENT.title}`}
+                    alt={`${AGENT.name}, listing agent selling homes in ${place}, Las Vegas`}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
@@ -141,121 +200,17 @@ export default async function HomePage() {
                   </div>
                 )}
               </div>
-              {/* Decorative accent */}
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-bhhs-gold/20 rounded-full -z-10" />
-              <div className="absolute -top-4 -left-4 w-16 h-16 bg-bhhs-maroon/10 rounded-full -z-10" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA / Contact Section */}
-      <section className="section-padding bg-gradient-to-r from-bhhs-maroon to-primary-900">
-        <div className="container-narrow mx-auto text-center">
-          <h2 className="text-3xl lg:text-4xl font-display font-bold text-white mb-4">
-            Ready to Find Your {config.neighborhood} Home?
-          </h2>
-          <p className="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
-            Whether you&apos;re buying, selling, or just exploring — {AGENT.name} is here to
-            help. Schedule a free, no-obligation consultation today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" className="btn-gold text-base px-8 py-4">
-              Schedule Consultation
-            </a>
-            <a
-              href={`tel:${AGENT.phoneTel}`}
-              className="btn-secondary !text-white !border-white/30 hover:!bg-white/10 text-base px-8 py-4"
-            >
-              Call {AGENT.phone}
-            </a>
-          </div>
-        </div>
-      </section>
+      <SellerCta neighborhood={place} />
 
-      {/* FAQ Section */}
-      <section className="section-padding bg-white">
-        <div className="container-narrow mx-auto">
-          <h2 className="text-3xl font-display font-bold text-primary-900 mb-8 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-4">
-            {getFAQs(config).map((faq, i) => (
-              <details
-                key={i}
-                className="group border border-primary-100 rounded-lg overflow-hidden"
-              >
-                <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-primary-50 transition-colors">
-                  <span className="font-semibold text-primary-900 text-sm pr-4">
-                    {faq.question}
-                  </span>
-                  <svg
-                    className="w-5 h-5 text-primary-400 group-open:rotate-180 transition-transform flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div className="px-5 pb-5 text-sm text-primary-600 leading-relaxed">
-                  {faq.answer}
-                </div>
-              </details>
-            ))}
-          </div>
-          {/* FAQ Schema */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'FAQPage',
-                mainEntity: getFAQs(config).map((faq) => ({
-                  '@type': 'Question',
-                  name: faq.question,
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: faq.answer,
-                  },
-                })),
-              }),
-            }}
-          />
-        </div>
-      </section>
+      <FaqSection
+        heading={`Selling a home in ${place}`}
+        faqs={getSellerFaqs(place, config.city)}
+      />
     </>
   );
-}
-
-function getFAQs(config: { neighborhood: string; city: string; state: string }) {
-  return [
-    {
-      question: `What is the average home price in ${config.neighborhood}?`,
-      answer: `Home prices in ${config.neighborhood} vary by community, size, and features. Contact Dr. Jan Duffy for a current market analysis specific to the area you're interested in. She provides free, no-obligation market reports.`,
-    },
-    {
-      question: `How do I start searching for homes in ${config.neighborhood}?`,
-      answer: `The easiest way is to use the search tool on this website, which connects directly to the MLS for real-time listings. You can also call Dr. Duffy at 702-903-1952 to discuss your needs and get personalized recommendations.`,
-    },
-    {
-      question: 'Do I need a REALTOR® to buy a home?',
-      answer:
-        'While not legally required, having an experienced REALTOR® like Dr. Jan Duffy ensures you get expert negotiation, market knowledge, access to all listings (including off-market), and guidance through the complex purchase process — all at no additional cost to buyers.',
-    },
-    {
-      question: `What makes ${config.neighborhood} a good place to live?`,
-      answer: `${config.neighborhood} in ${config.city}, ${config.state} offers a unique combination of location, amenities, and lifestyle. From top-rated schools to parks, shopping, and dining — it's one of the most desirable areas in the Las Vegas Valley. Ask Dr. Duffy for a detailed neighborhood guide.`,
-    },
-    {
-      question: 'How long does it take to buy a home in Las Vegas?',
-      answer:
-        'The typical home purchase takes 30-45 days from accepted offer to closing. However, cash purchases can close in as little as 7-14 days. Dr. Duffy helps streamline the process so there are no surprises.',
-    },
-  ];
 }

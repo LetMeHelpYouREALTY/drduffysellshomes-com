@@ -1,119 +1,146 @@
 import type { Metadata } from 'next';
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { AGENT } from '@/config/agent';
+import { findNeighborhoodForName, getAllNeighborhoods } from '@/config/neighborhoods';
 import { RealScoutSearch, RealScoutListings } from '@/components/RealScoutWidget';
+import { getSiteUrl } from '@/lib/siteUrl';
+import { buildPageMetadata } from '@/lib/pageMetadata';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import SellerCta from '@/components/SellerCta';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getDomainConfig();
-  return {
-    title: `Homes for Sale in ${config.neighborhood} — Search All MLS Listings`,
-    description: `Search every home for sale in ${config.neighborhood}, ${config.city}. Updated MLS listings with photos, prices, and virtual tours. Contact ${AGENT.name} at ${AGENT.phone}.`,
-  };
+  const baseUrl = await getSiteUrl();
+  const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
+  return buildPageMetadata({
+    title: `What's Selling in ${place} — Live MLS Inventory`,
+    description: `See the ${place} homes buyers are touring this week. ${AGENT.name} uses this live MLS set to price and market your listing. Call ${AGENT.phone}.`,
+    path: '/listings',
+    baseUrl,
+    keywords: [
+      `${place} homes for sale`,
+      `selling in ${place}`,
+      'Las Vegas MLS listings',
+      `${place} listing competition`,
+    ],
+  });
 }
+
+export const revalidate = 3600;
 
 export default async function ListingsPage() {
   const config = await getDomainConfig();
+  const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
+  const neighborhoods = getAllNeighborhoods().slice(0, 9);
 
   return (
     <>
-      {/* Header */}
+      <Breadcrumbs
+        items={[
+          { name: 'Sell Your Home', href: '/' },
+          { name: "What's Selling" },
+        ]}
+      />
+
       <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
         <div className="container-wide mx-auto text-center">
           <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            {config.neighborhood} Homes for Sale
+            What&apos;s Selling in {place}
           </h1>
           <p className="text-lg text-primary-200 max-w-2xl mx-auto">
-            Browse every active listing in {config.neighborhood}, {config.city}. Updated in real
-            time from the MLS.
+            Live MLS inventory is the set buyers will compare to your {place} home. We use it
+            for your list price, not a Las Vegas Valley average.
           </p>
         </div>
       </section>
 
-      {/* RealScout Search Widget — Worker injects the actual widget */}
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">
           <div className="mb-8">
             <h2 className="text-2xl font-display font-bold text-primary-900 mb-2">
-              Search Properties
+              Filter {place} competition
             </h2>
             <p className="text-primary-600">
-              Use the filters below to find your perfect {config.neighborhood} home.
+              Same beds, baths, and plan as your home — that is the comparable set that matters
+              when we list.
             </p>
           </div>
-
-          {/* RealScout search widget — the Worker auto-injects the script */}
           <div className="mb-12">
             <RealScoutSearch />
           </div>
 
-          {/* RealScout listings grid */}
           <div className="mb-8">
             <h2 className="text-2xl font-display font-bold text-primary-900 mb-2">
-              Active Listings
+              Active listings buyers will tour
             </h2>
             <p className="text-primary-600 mb-6">
-              Showing homes currently for sale in {config.neighborhood} and surrounding areas.
+              Greater Las Vegas Association of REALTORS® MLS. Updated as the feed refreshes.
             </p>
           </div>
-
           <RealScoutListings status="active" numResults="12" />
         </div>
       </section>
 
-      {/* Why Search Here */}
       <section className="section-padding bg-primary-50">
         <div className="container-wide mx-auto">
+          <h2 className="text-2xl font-display font-bold text-primary-900 mb-6 text-center">
+            Why sellers watch this page
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6">
-              <div className="text-3xl mb-3">🔄</div>
-              <h3 className="font-display font-bold text-primary-900 mb-2">Real-Time MLS Data</h3>
+              <h3 className="font-display font-bold text-primary-900 mb-2">Real-time MLS</h3>
               <p className="text-sm text-primary-600">
-                Listings update directly from the Greater Las Vegas Association of REALTORS® MLS.
-                No stale data.
+                New {place} listings can steal your showing weekend. We watch the same feed.
               </p>
             </div>
             <div className="text-center p-6">
-              <div className="text-3xl mb-3">🏷️</div>
-              <h3 className="font-display font-bold text-primary-900 mb-2">Save & Compare</h3>
+              <h3 className="font-display font-bold text-primary-900 mb-2">Price position</h3>
               <p className="text-sm text-primary-600">
-                Create a free account to save favorites, set up alerts, and compare properties
-                side by side.
+                If three similar homes are live, the best-presented, best-priced listing gets
+                the first offer.
               </p>
             </div>
             <div className="text-center p-6">
-              <div className="text-3xl mb-3">📱</div>
-              <h3 className="font-display font-bold text-primary-900 mb-2">Tour Scheduling</h3>
+              <h3 className="font-display font-bold text-primary-900 mb-2">Neighborhood, not ZIP</h3>
               <p className="text-sm text-primary-600">
-                Schedule tours directly from any listing. Virtual and in-person options available.
+                We still list to {place} streets and plans. Browse other communities below if
+                your home sits on a border.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-gradient-to-r from-bhhs-maroon to-primary-900">
-        <div className="container-narrow mx-auto text-center">
-          <h2 className="text-3xl font-display font-bold text-white mb-4">
-            Can&apos;t Find What You&apos;re Looking For?
+      <section className="section-padding bg-white">
+        <div className="container-wide mx-auto">
+          <h2 className="text-2xl font-display font-bold text-primary-900 mb-6">
+            Selling in a different Las Vegas neighborhood?
           </h2>
-          <p className="text-lg text-primary-200 mb-8 max-w-xl mx-auto">
-            Dr. Duffy has access to off-market listings, pocket listings, and new construction
-            not yet on the MLS. Call for exclusive opportunities.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" className="btn-gold text-base px-8 py-4">
-              Contact Dr. Duffy
-            </a>
+          <div className="flex flex-wrap gap-3">
+            {neighborhoods.map((n) => (
+              <a
+                key={n.slug}
+                href={`/neighborhoods/${n.slug}`}
+                className="px-4 py-2 text-sm bg-primary-50 text-primary-800 rounded-full border border-primary-100 hover:border-bhhs-maroon"
+              >
+                Sell in {n.name}
+              </a>
+            ))}
             <a
-              href={`tel:${AGENT.phoneTel}`}
-              className="btn-secondary !text-white !border-white/30 hover:!bg-white/10 text-base px-8 py-4"
+              href="/neighborhoods"
+              className="px-4 py-2 text-sm bg-bhhs-maroon text-white rounded-full"
             >
-              Call {AGENT.phone}
+              All neighborhoods
             </a>
           </div>
         </div>
       </section>
+
+      <SellerCta
+        neighborhood={place}
+        heading={`List your ${place} home before this inventory grows`}
+        body={`A current CMA uses these actives plus closed sales. Call ${AGENT.phone}.`}
+      />
     </>
   );
 }

@@ -1,84 +1,57 @@
-# Dr. Jan Duffy — Multi-Domain Real Estate Template
+# Dr. Duffy Sells Homes
 
-One Next.js 15 deployment that serves **multiple domains** with hostname-based content. Each domain gets unique SEO, hero text, and neighborhood focus while sharing the same codebase, branding, and RealScout integration.
+Next.js 15 site that lists and sells homes **neighborhood by neighborhood** across the Las Vegas Valley. One deployment serves multiple hostnames; each request resolves the community, then every page and section is written as seller representation — CMA, listing launch, competing inventory — not a generic buyer search template.
 
-## Architecture
+## Google Search Console
 
-```
-Browser → Cloudflare DNS → Vercel (this app) → hostname detection → domain-specific content
-                ↓
-     Cloudflare Worker (realscout-global-injector)
-     injects RealScout widgets + schema at the edge
-```
+The site is built so GSC can verify, crawl, and index without extra plugins.
 
-**Key files:**
-- `src/config/domains.ts` — Domain-to-content mapping (add new domains here)
-- `src/config/agent.ts` — Dr. Jan Duffy NAP, credentials, branding
-- `src/lib/getDomainConfig.ts` — Resolves hostname → config at request time
-- `src/middleware.ts` — Ensures hostname is available to server components
+1. **Verify the property**
+   - Preferred: add `GOOGLE_SITE_VERIFICATION` in Vercel env (the content value from Search Console’s HTML-tag method). The root layout emits `<meta name="google-site-verification">`.
+   - Alternate: paste Google’s HTML-file contents into `GOOGLE_HTML_VERIFICATION`. Requests to `/google*.html` are rewritten to that file.
+   - Optional: `BING_SITE_VERIFICATION` for Bing Webmaster Tools (`msvalidate.01`).
+2. **Submit the sitemap** after the production domain is verified: `https://<host>/sitemap.xml`.
+3. **Confirm robots** at `https://<host>/robots.txt` — it allows Googlebot and points at the sitemap. Do not disallow CSS/JS.
+4. **Inspect URLs** in GSC: home, `/neighborhoods`, a neighborhood slug, `/sell`, `/listings`, `/contact`. Canonicals are absolute per hostname.
+5. **Request indexing** on those URLs once verification succeeds.
 
-## Adding a New Domain
+Do not guess sold prices or days-on-market in copy. Listing pages send sellers to a current CMA.
 
-1. **Add config** in `src/config/domains.ts`:
-   ```typescript
-   'newdomain.com': {
-     name: 'New Domain Name',
-     neighborhood: 'Area Name',
-     heroTitle: 'Homes for Sale in Area',
-     heroSubtitle: 'Your tagline here.',
-     // ... other overrides
-   },
-   ```
+## Neighborhood selling pages
 
-2. **Push to Vercel** — the build deploys automatically.
+`src/config/neighborhoods.ts` is the catalog. Each slug has unique listing copy (amenities, commute, tips). Routes:
 
-3. **Add domain in Vercel Dashboard:**
-   - Project Settings → Domains → Add `newdomain.com`
+- `/` — sell in the hostname’s community, plus the full valley grid
+- `/neighborhoods` — hub
+- `/neighborhoods/[slug]` — sell-your-home page for that community
+- `/sell` — listing process
+- `/listings` — live MLS as seller competition
+- `/about` — listing agent
+- `/contact` — list / valuation
 
-4. **Point DNS** (in Cloudflare):
-   - Add CNAME: `newdomain.com` → `cname.vercel-dns.com` (DNS only, gray cloud)
+## Local SEO / NAP
 
-5. **Add Worker route** (for RealScout injection):
-   ```bash
-   node scripts/deploy-worker-routes.js <worker-token> --domain newdomain.com
-   ```
+Must match Google Business Profile:
+
+- Dr. Jan Duffy
+- Berkshire Hathaway HomeServices Nevada Properties
+- 9406 Del Webb Blvd, Las Vegas, NV 89134
+- 702-903-1952
+
+JSON-LD `RealEstateAgent` + `LocalBusiness` is on every page. FAQ schema is on seller FAQs.
 
 ## Development
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000
+npm run dev
 ```
-
-Test different domains locally by editing `/etc/hosts` or using the `Host` header:
-```bash
-curl -H "Host: skyecanyonhomesforsale.com" http://localhost:3000
-```
-
-## Build & Deploy
 
 ```bash
-npm run build   # Verify production build
-vercel --prod   # Deploy to Vercel
+curl -H "Host: drduffysellshomes.com" http://localhost:3000
+curl -H "Host: drduffysellshomes.com" http://localhost:3000/sitemap.xml
 ```
 
-## Template Domains (6 confirmed safe)
+## Deploy
 
-These domains are error/empty pages — safe to deploy:
-
-| Domain | Current Status |
-|---|---|
-| `californiaforeverrealty.com` | 404 error |
-| `drduffysellshomes.com` | 403 error |
-| `findahomeinlasvegas.com` | 404 on Vercel |
-| `searchforhomeslasvegas.com` | 403 error |
-| `zoomintohomes.com` | 403 error |
-| `skyecanyonhomesforsale.com` | Empty page |
-
-## Tech Stack
-
-- **Next.js 15** App Router + TypeScript
-- **Tailwind CSS** v3
-- **Cloudflare Worker** for RealScout injection (no per-site config needed)
-- **Vercel** deployment with multi-domain support
-- **SEO**: JSON-LD (LocalBusiness, WebPage, FAQPage), dynamic sitemap/robots, E-E-A-T optimized
+Push to the production branch. Add env vars in Vercel, then complete GSC verification and sitemap submit.

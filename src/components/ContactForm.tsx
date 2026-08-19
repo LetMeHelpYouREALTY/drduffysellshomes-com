@@ -12,6 +12,7 @@ export default function ContactForm({ neighborhood }: { neighborhood: string }) 
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    void data;
 
     // Submit to Formspree or your API endpoint
     // For now, just simulate success
@@ -115,15 +116,28 @@ export default function ContactForm({ neighborhood }: { neighborhood: string }) 
         <select
           id="interest"
           name="interest"
+          defaultValue="selling"
           className="block w-full rounded-lg border border-primary-200 bg-white px-4 py-3 text-primary-900 focus:border-bhhs-maroon focus:ring-1 focus:ring-bhhs-maroon focus:outline-none transition-colors"
         >
-          <option value="buying">Buying a home in {neighborhood}</option>
-          <option value="selling">Selling my home</option>
-          <option value="valuation">Free home valuation</option>
-          <option value="investing">Investment properties</option>
-          <option value="relocation">Relocating to Las Vegas</option>
+          <option value="selling">Selling my {neighborhood} home</option>
+          <option value="valuation">Free {neighborhood} home valuation</option>
+          <option value="listing-appointment">Schedule a listing appointment</option>
+          <option value="buying">I also need to buy after I sell</option>
           <option value="other">Other</option>
         </select>
+      </div>
+
+      <div>
+        <label htmlFor="address" className="block text-sm font-medium text-primary-700 mb-1">
+          Property address
+        </label>
+        <input
+          id="address"
+          name="address"
+          type="text"
+          className="block w-full rounded-lg border border-primary-200 bg-white px-4 py-3 text-primary-900 placeholder-primary-400 focus:border-bhhs-maroon focus:ring-1 focus:ring-bhhs-maroon focus:outline-none transition-colors"
+          placeholder={`${neighborhood} street address`}
+        />
       </div>
 
       <div>
@@ -135,7 +149,7 @@ export default function ContactForm({ neighborhood }: { neighborhood: string }) 
           name="message"
           rows={4}
           className="block w-full rounded-lg border border-primary-200 bg-white px-4 py-3 text-primary-900 placeholder-primary-400 focus:border-bhhs-maroon focus:ring-1 focus:ring-bhhs-maroon focus:outline-none transition-colors resize-y"
-          placeholder="Tell us about your real estate needs..."
+          placeholder={`Tell us about your ${neighborhood} home — beds, updates, timeline.`}
         />
       </div>
 
@@ -144,7 +158,7 @@ export default function ContactForm({ neighborhood }: { neighborhood: string }) 
         disabled={submitting}
         className="btn-primary w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {submitting ? 'Sending...' : 'Send Message'}
+        {submitting ? 'Sending...' : 'Request listing plan'}
       </button>
 
       <p className="text-xs text-primary-400">

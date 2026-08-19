@@ -1,44 +1,67 @@
 import type { Metadata } from 'next';
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { AGENT } from '@/config/agent';
+import { findNeighborhoodForName, getAllNeighborhoods } from '@/config/neighborhoods';
+import { getSiteUrl } from '@/lib/siteUrl';
+import { buildPageMetadata } from '@/lib/pageMetadata';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import SellerCta from '@/components/SellerCta';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getDomainConfig();
-  return {
-    title: `About ${AGENT.name} — ${config.neighborhood} Real Estate Expert`,
-    description: `${AGENT.shortBio} Serving ${config.neighborhood}, ${config.city}, ${config.state}.`,
-  };
+  const baseUrl = await getSiteUrl();
+  const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
+  return buildPageMetadata({
+    title: `${AGENT.name} — Listing Agent Selling ${place} Homes`,
+    description: `${AGENT.shortBio} ${AGENT.name} sells homes in ${place} and across Las Vegas neighborhoods. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}.`,
+    path: '/about',
+    baseUrl,
+    keywords: [
+      `${AGENT.name} listing agent`,
+      `sell home ${place}`,
+      'Las Vegas REALTOR',
+    ],
+  });
 }
+
+export const revalidate = 86400;
 
 export default async function AboutPage() {
   const config = await getDomainConfig();
+  const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
+  const neighborhoods = getAllNeighborhoods();
 
   return (
     <>
-      {/* Hero Banner */}
+      <Breadcrumbs
+        items={[
+          { name: 'Sell Your Home', href: '/' },
+          { name: 'About' },
+        ]}
+      />
+
       <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
         <div className="container-wide mx-auto text-center">
           <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            About {AGENT.name}
+            {AGENT.name} Sells {place} Homes
           </h1>
           <p className="text-lg text-primary-200 max-w-2xl mx-auto">
-            Your trusted {config.neighborhood} real estate expert with over 20 years of experience.
+            Listing representation for {place} and every major Las Vegas Valley neighborhood —
+            Summerlin villages to Henderson master plans.
           </p>
         </div>
       </section>
 
-      {/* Bio Section */}
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            {/* Photo */}
             <div className="lg:col-span-2">
               <div className="sticky top-24">
                 <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-bhhs-cream to-primary-100 overflow-hidden mb-6">
                   {AGENT.headshotUrl ? (
                     <img
                       src={AGENT.headshotUrl}
-                      alt={`${AGENT.name} — ${AGENT.title}`}
+                      alt={`${AGENT.name}, ${AGENT.title}, selling homes in ${place}, Las Vegas`}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -48,7 +71,7 @@ export default async function AboutPage() {
                   )}
                 </div>
                 <div className="bg-primary-50 rounded-xl p-6">
-                  <h3 className="font-display font-bold text-primary-900 mb-3">Contact Info</h3>
+                  <h2 className="font-display font-bold text-primary-900 mb-3">Office</h2>
                   <div className="space-y-2 text-sm">
                     <p>
                       <span className="text-primary-500">Phone:</span>{' '}
@@ -63,19 +86,22 @@ export default async function AboutPage() {
                       </a>
                     </p>
                     <p>
-                      <span className="text-primary-500">Office:</span>{' '}
+                      <span className="text-primary-500">Address:</span>{' '}
                       <span className="text-primary-700">{AGENT.address.full}</span>
                     </p>
                     <p>
                       <span className="text-primary-500">License:</span>{' '}
                       <span className="text-primary-700">{AGENT.license}</span>
                     </p>
+                    <p>
+                      <span className="text-primary-500">Brokerage:</span>{' '}
+                      <span className="text-primary-700">{AGENT.brokerage}</span>
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Bio Content */}
             <div className="lg:col-span-3">
               <h2 className="text-2xl font-display font-bold text-primary-900 mb-6">
                 {AGENT.fullName}
@@ -84,27 +110,24 @@ export default async function AboutPage() {
                 {AGENT.title} | {AGENT.brokerage}
               </p>
 
-              <div className="prose prose-lg max-w-none text-primary-700 space-y-4">
+              <div className="space-y-4 text-primary-700">
                 <p>{AGENT.shortBio}</p>
                 <p>
-                  Specializing in {config.neighborhood} and the greater {config.city} area,
-                  Dr. Duffy combines academic rigor with real-world expertise to deliver
-                  exceptional results for every client. Whether you&apos;re a first-time
-                  buyer, luxury home seeker, or seasoned investor, she provides the
-                  data-driven insights and personalized attention you deserve.
+                  Sellers in {place} do not need a valley-wide slogan. They need a list price
+                  from matching closed sales, remarks that name the community buyers already
+                  search, and a listing agent who watches competing {place} inventory while the
+                  home is live.
                 </p>
                 <p>
-                  As a member of Berkshire Hathaway HomeServices — one of the most trusted
-                  names in real estate — Dr. Duffy has access to a global network of
-                  resources, marketing tools, and buyer connections that independent agents
-                  simply can&apos;t match.
+                  As a member of {AGENT.brokerage}, Dr. Duffy pairs that neighborhood listing
+                  work with a national referral network — useful when the buyer for your{' '}
+                  {place} home is relocating, not already on your street.
                 </p>
               </div>
 
-              {/* Credentials */}
               <div className="mt-10">
                 <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
-                  Credentials & Achievements
+                  Credentials
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {AGENT.credentials.map((cred) => (
@@ -129,61 +152,31 @@ export default async function AboutPage() {
                 </div>
               </div>
 
-              {/* Service Areas */}
               <div className="mt-10">
                 <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
-                  Service Areas
+                  Neighborhoods we sell
                 </h3>
                 <p className="text-primary-600 mb-4">
-                  Dr. Duffy serves the entire Las Vegas Valley, with deep expertise in:
+                  Every name below is a dedicated selling page — not a tag on a generic bio.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    config.neighborhood,
-                    'Summerlin',
-                    'Henderson',
-                    'North Las Vegas',
-                    'Lone Mountain',
-                    'Skye Canyon',
-                    'The Ridges',
-                    'Spanish Trail',
-                    'Southern Highlands',
-                    'Green Valley',
-                  ].map((area) => (
-                    <span
-                      key={area}
-                      className="px-3 py-1 text-sm bg-primary-50 text-primary-700 rounded-full border border-primary-100"
+                  {neighborhoods.map((n) => (
+                    <a
+                      key={n.slug}
+                      href={`/neighborhoods/${n.slug}`}
+                      className="px-3 py-1 text-sm bg-primary-50 text-primary-700 rounded-full border border-primary-100 hover:border-bhhs-maroon"
                     >
-                      {area}
-                    </span>
+                      {n.name}
+                    </a>
                   ))}
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div className="mt-10 p-8 bg-gradient-to-r from-bhhs-maroon to-primary-800 rounded-2xl text-center">
-                <h3 className="text-xl font-display font-bold text-white mb-3">
-                  Ready to Get Started?
-                </h3>
-                <p className="text-primary-200 mb-6">
-                  Schedule a free consultation with Dr. Duffy today.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <a href="/contact" className="btn-gold">
-                    Schedule Consultation
-                  </a>
-                  <a
-                    href={`tel:${AGENT.phoneTel}`}
-                    className="btn-secondary !text-white !border-white/30 hover:!bg-white/10"
-                  >
-                    Call {AGENT.phone}
-                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <SellerCta neighborhood={place} heading={`List your ${place} home with ${AGENT.name}`} />
     </>
   );
 }

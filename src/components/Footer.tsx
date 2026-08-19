@@ -1,16 +1,16 @@
 import { AGENT } from '@/config/agent';
 import type { DomainConfig } from '@/config/domains';
+import { NEIGHBORHOODS } from '@/config/neighborhoods';
 
 export default function Footer({ config }: { config: DomainConfig }) {
   const year = new Date().getFullYear();
+  const featured = NEIGHBORHOODS.slice(0, 12);
 
   return (
     <footer className="bg-primary-900 text-primary-200">
-      {/* Main Footer */}
       <div className="container-wide mx-auto section-padding pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Agent Info + NAP */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <h3 className="text-lg font-display font-bold text-white mb-3">
               {AGENT.name}
             </h3>
@@ -21,7 +21,6 @@ export default function Footer({ config }: { config: DomainConfig }) {
               License: {AGENT.license}
             </p>
 
-            {/* NAP — must match GBP */}
             <address className="not-italic text-sm text-primary-300 space-y-1">
               <p>{AGENT.address.full}</p>
               <p>
@@ -43,17 +42,18 @@ export default function Footer({ config }: { config: DomainConfig }) {
             </address>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
-              Quick Links
+              Sell Your Home
             </h4>
             <ul className="space-y-2 text-sm">
               {[
-                { label: 'Search Homes', href: '/listings' },
+                { label: `Sell in ${config.neighborhood}`, href: '/' },
+                { label: 'All Las Vegas neighborhoods', href: '/neighborhoods' },
+                { label: "What's selling now", href: '/listings' },
+                { label: 'How we sell', href: '/sell' },
+                { label: 'Free home valuation', href: '/contact#valuation' },
                 { label: 'About Dr. Duffy', href: '/about' },
-                { label: 'Contact Us', href: '/contact' },
-                { label: 'Home Valuation', href: '/contact#valuation' },
               ].map((link) => (
                 <li key={link.href}>
                   <a
@@ -67,7 +67,32 @@ export default function Footer({ config }: { config: DomainConfig }) {
             </ul>
           </div>
 
-          {/* Hours + Actions */}
+          <div>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+              Sell by Neighborhood
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {featured.map((n) => (
+                <li key={n.slug}>
+                  <a
+                    href={`/neighborhoods/${n.slug}`}
+                    className="text-primary-300 hover:text-white transition-colors"
+                  >
+                    {n.name} homes
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="/neighborhoods"
+                  className="text-bhhs-gold hover:text-white transition-colors"
+                >
+                  View all neighborhoods
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
               Office Hours
@@ -96,21 +121,27 @@ export default function Footer({ config }: { config: DomainConfig }) {
               >
                 Google Reviews
               </a>
+              <a
+                href="https://maps.google.com/?q=9406+Del+Webb+Blvd+Las+Vegas+NV+89134"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary text-sm px-4 py-2 text-center !text-primary-200 !border-primary-600 hover:!bg-primary-800"
+              >
+                Directions
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="border-t border-primary-800">
         <div className="container-wide mx-auto px-4 sm:px-6 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-primary-400">
             <p>
-              &copy; {year} {AGENT.name}. All rights reserved. Powered by{' '}
-              {AGENT.brokerageShort}.
+              &copy; {year} {AGENT.name}. All rights reserved. {AGENT.brokerageShort}.
             </p>
             <p>
-              {config.neighborhood} real estate | {config.city}, {config.state}{' '}
+              Selling homes in {config.neighborhood} | {config.city}, {config.state}{' '}
               {config.zip}
             </p>
           </div>

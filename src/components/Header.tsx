@@ -8,8 +8,10 @@ export default function Header({ config }: { config: DomainConfig }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Search Homes', href: '/listings' },
+    { label: 'Sell', href: '/' },
+    { label: 'Neighborhoods', href: '/neighborhoods' },
+    { label: "What's Selling", href: '/listings' },
+    { label: 'How We Sell', href: '/sell' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ];
@@ -18,7 +20,6 @@ export default function Header({ config }: { config: DomainConfig }) {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-primary-100 shadow-sm">
       <div className="container-wide mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo / Site Name */}
           <a href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full bg-bhhs-maroon flex items-center justify-center text-white font-display text-lg font-bold">
               JD
@@ -27,12 +28,11 @@ export default function Header({ config }: { config: DomainConfig }) {
               <p className="text-sm font-bold text-primary-900 group-hover:text-bhhs-maroon transition-colors">
                 {config.name}
               </p>
-              <p className="text-xs text-primary-500">{AGENT.brokerageShort}</p>
+              <p className="text-xs text-primary-500">Sells {config.neighborhood} Homes</p>
             </div>
           </a>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6" aria-label="Primary">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -44,7 +44,6 @@ export default function Header({ config }: { config: DomainConfig }) {
             ))}
           </nav>
 
-          {/* CTA + Phone */}
           <div className="hidden lg:flex items-center gap-4">
             <a
               href={`tel:${AGENT.phoneTel}`}
@@ -52,16 +51,16 @@ export default function Header({ config }: { config: DomainConfig }) {
             >
               {AGENT.phone}
             </a>
-            <a href="/contact" className="btn-primary text-sm px-4 py-2">
-              Free Consultation
+            <a href="/contact#valuation" className="btn-primary text-sm px-4 py-2">
+              Get Home Value
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden p-2 text-primary-700"
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {menuOpen ? (
@@ -73,10 +72,9 @@ export default function Header({ config }: { config: DomainConfig }) {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {menuOpen && (
           <div className="lg:hidden py-4 border-t border-primary-100">
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-3" aria-label="Mobile">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -94,8 +92,8 @@ export default function Header({ config }: { config: DomainConfig }) {
                 >
                   Call: {AGENT.phone}
                 </a>
-                <a href="/contact" className="btn-primary w-full text-center">
-                  Free Consultation
+                <a href="/contact#valuation" className="btn-primary w-full text-center">
+                  Get Home Value
                 </a>
               </div>
             </nav>
