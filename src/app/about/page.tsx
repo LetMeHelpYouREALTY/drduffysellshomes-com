@@ -70,27 +70,27 @@ export default async function AboutPage() {
                   <h2 className="font-display font-bold text-primary-900 mb-3">{officeH2()}</h2>
                   <div className="space-y-2 text-sm">
                     <p>
-                      <span className="text-primary-500">Phone:</span>{' '}
+                      <span className="text-primary-700">Phone:</span>{' '}
                       <a href={`tel:${AGENT.phoneTel}`} className="text-bhhs-maroon font-semibold">
                         {AGENT.phone}
                       </a>
                     </p>
                     <p>
-                      <span className="text-primary-500">Email:</span>{' '}
+                      <span className="text-primary-700">Email:</span>{' '}
                       <a href={`mailto:${AGENT.email}`} className="text-bhhs-maroon">
                         {AGENT.email}
                       </a>
                     </p>
                     <p>
-                      <span className="text-primary-500">Address:</span>{' '}
+                      <span className="text-primary-700">Address:</span>{' '}
                       <span className="text-primary-700">{AGENT.address.full}</span>
                     </p>
                     <p>
-                      <span className="text-primary-500">License:</span>{' '}
+                      <span className="text-primary-700">License:</span>{' '}
                       <span className="text-primary-700">{AGENT.license}</span>
                     </p>
                     <p>
-                      <span className="text-primary-500">Brokerage:</span>{' '}
+                      <span className="text-primary-700">Brokerage:</span>{' '}
                       <span className="text-primary-700">{AGENT.brokerage}</span>
                     </p>
                   </div>

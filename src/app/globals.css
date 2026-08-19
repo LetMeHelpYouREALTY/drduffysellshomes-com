@@ -57,4 +57,15 @@
     display: block;
     width: 100%;
   }
+
+  /* Skip paint for below-fold third-party embeds so FCP/LCP stay on the hero. */
+  .below-fold-embed {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 280px;
+  }
+
+  .calendly-embed-grid {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 2200px;
+  }
 }

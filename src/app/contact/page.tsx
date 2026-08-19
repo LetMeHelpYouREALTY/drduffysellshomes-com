@@ -75,7 +75,7 @@ export default async function ContactPage() {
                     className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
                   >
                     <div>
-                      <p className="text-xs text-primary-500">Call</p>
+                      <p className="text-xs text-primary-700">Call</p>
                       <p className="font-semibold text-bhhs-maroon">{AGENT.phone}</p>
                     </div>
                   </a>
@@ -84,7 +84,7 @@ export default async function ContactPage() {
                     className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
                   >
                     <div>
-                      <p className="text-xs text-primary-500">Email</p>
+                      <p className="text-xs text-primary-700">Email</p>
                       <p className="font-semibold text-bhhs-maroon text-sm">{AGENT.email}</p>
                     </div>
                   </a>
@@ -93,7 +93,7 @@ export default async function ContactPage() {
                     className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
                   >
                     <div>
-                      <p className="text-xs text-primary-500">Schedule</p>
+                      <p className="text-xs text-primary-700">Schedule</p>
                       <p className="font-semibold text-bhhs-maroon">Listing appointment</p>
                     </div>
                   </a>
@@ -145,7 +145,7 @@ export default async function ContactPage() {
                   className="block p-4 bg-bhhs-cream rounded-xl text-center hover:shadow-md transition-shadow"
                 >
                   <p className="font-semibold text-primary-900 text-sm">View Google Reviews</p>
-                  <p className="text-xs text-primary-500">Read seller feedback</p>
+                  <p className="text-xs text-primary-700">Read seller feedback</p>
                 </a>
               </div>
             </div>

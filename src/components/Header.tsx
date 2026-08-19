@@ -29,7 +29,7 @@ export default function Header({ config }: { config: DomainConfig }) {
               <p className="text-sm font-bold text-primary-900 group-hover:text-bhhs-maroon transition-colors">
                 {config.name}
               </p>
-              <p className="text-xs text-primary-500">Sells {config.neighborhood} Homes</p>
+              <p className="text-xs text-primary-700">Sells {config.neighborhood} Homes</p>
             </div>
           </a>
 

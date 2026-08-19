@@ -145,7 +145,7 @@ export default function Footer({ config }: { config: DomainConfig }) {
               {config.zip}
             </p>
           </div>
-          <p className="mt-3 text-xs text-primary-500 text-center sm:text-left">
+          <p className="mt-3 text-xs text-primary-700 text-center sm:text-left">
             Equal Housing Opportunity. All information deemed reliable but not
             guaranteed. Listing data provided by the Greater Las Vegas Association
             of REALTORS® MLS.

@@ -118,14 +118,12 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://imagedelivery.net" />
-        <link rel="preconnect" href="https://em.realscout.com" />
-        <link rel="preconnect" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://em.realscout.com" />
         <link rel="dns-prefetch" href="https://www.realscout.com" />
+        <link rel="dns-prefetch" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://calendly.com" />
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM content map" />
         <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM full briefing" />
-        <link rel="stylesheet" href={CALENDLY_WIDGET_CSS} />
         <SchemaMarkup
           config={config}
           pageTitle={hero.title}
@@ -133,16 +131,20 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
+        {/* Third-party assets wait until idle so they cannot block FCP/LCP. */}
         <Script
           id="realscout-web-components"
           src={REALSCOUT_SCRIPT_SRC}
           type="module"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
+        <Script id="calendly-widget-css" strategy="lazyOnload">
+          {`(function(){if(document.getElementById('calendly-widget-stylesheet'))return;var l=document.createElement('link');l.id='calendly-widget-stylesheet';l.rel='stylesheet';l.href=${JSON.stringify(CALENDLY_WIDGET_CSS)};document.head.appendChild(l);})();`}
+        </Script>
         <Script
           id="calendly-widget"
           src={CALENDLY_SCRIPT_SRC}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <CalendlyBadge />
         <NapBar />

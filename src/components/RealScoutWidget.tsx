@@ -60,12 +60,12 @@ export function RealScoutCarousel({ neighborhood }: { neighborhood?: string }) {
           </p>
         </div>
         <div
-          className="realscout-carousel"
+          className="realscout-carousel below-fold-embed"
           dangerouslySetInnerHTML={{
             __html: `<realscout-office-listings agent-encoded-id="${REALSCOUT_AGENT_ENCODED_ID}" sort-order="STATUS_AND_SIGNIFICANT_CHANGE" listing-status="For Sale" property-types="SFR,MF"></realscout-office-listings>`,
           }}
         />
-        <p className="mt-4 text-xs text-primary-500 text-center">
+        <p className="mt-4 text-xs text-primary-700 text-center">
           Listing data from the Greater Las Vegas Association of REALTORS® MLS. Information
           deemed reliable but not guaranteed. Equal Housing Opportunity.
         </p>

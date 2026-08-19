@@ -42,7 +42,7 @@ export default function CalendlyBadge() {
         window.clearInterval(timer);
         return;
       }
-      if (Date.now() - start > 15000) {
+      if (Date.now() - start > 30000) {
         window.clearInterval(timer);
       }
     }, 250);
