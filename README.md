@@ -10,7 +10,7 @@ The site is built so GSC can verify, crawl, and index without extra plugins.
    - Preferred: add `GOOGLE_SITE_VERIFICATION` in Vercel env (the content value from Search Console’s HTML-tag method). The root layout emits `<meta name="google-site-verification">`.
    - Alternate: paste Google’s HTML-file contents into `GOOGLE_HTML_VERIFICATION`. Requests to `/google*.html` are rewritten to that file.
    - Optional: `BING_SITE_VERIFICATION` for Bing Webmaster Tools (`msvalidate.01`).
-2. **Submit the sitemap** after the production domain is verified: `https://<host>/sitemap.xml`.
+2. **Submit the sitemap** after the production domain is verified: `https://drduffysellshomes.com/sitemap.xml` (48 URLs: core pages plus every neighborhood selling page). Regenerate with `npm run sitemap`.
 3. **Confirm robots** at `https://<host>/robots.txt` — it allows Googlebot and points at the sitemap. Do not disallow CSS/JS.
 4. **Inspect URLs** in GSC: home, `/neighborhoods`, a neighborhood slug, `/sell`, `/listings`, `/contact`. Canonicals are absolute per hostname.
 5. **Request indexing** on those URLs once verification succeeds.
