@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { AGENT } from '@/config/agent';
-import ContactForm from '@/components/ContactForm';
 import { findNeighborhoodForName, getAllNeighborhoods } from '@/config/neighborhoods';
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
@@ -14,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
   return buildPageMetadata({
     title: `List Your ${place} Home — Contact ${AGENT.name}`,
-    description: `Request a ${place} home valuation or listing appointment. ${AGENT.name}, ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`,
+    description: `Book a ${place} listing consultation or market strategy call with ${AGENT.name}. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`,
     path: '/contact',
     baseUrl,
     keywords: [
@@ -43,7 +42,7 @@ export default async function ContactPage() {
 
       <PageHero
         title={`List Your ${place} Home`}
-        subtitle={`Send the address. We return a ${place} CMA and a listing plan — not a valley-wide guess. Call ${AGENT.phone} or use the form.`}
+        subtitle={`Book a listing consultation or market strategy call. We return a ${place} CMA — not a valley-wide guess. Call ${AGENT.phone} if you need a time that is not on the calendar.`}
         neighborhood={place}
       />
 
@@ -51,10 +50,17 @@ export default async function ContactPage() {
         <div className="container-wide mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             <div className="lg:col-span-3">
-              <h2 className="text-2xl font-display font-bold text-primary-900 mb-6">
-                Request a {place} listing consultation
+              <h2 className="text-2xl font-display font-bold text-primary-900 mb-4">
+                Book a {place} listing consultation
               </h2>
-              <ContactForm neighborhood={place} />
+              <p className="text-primary-600 mb-6 leading-relaxed">
+                There is no contact form on this site. Use the calendars above — listing
+                consultation, 15-minute market strategy, or buyer consult — or call{' '}
+                {AGENT.phone}.
+              </p>
+              <a href="#schedule" className="btn-primary">
+                Jump to calendars
+              </a>
             </div>
 
             <div className="lg:col-span-2 space-y-6">
@@ -82,9 +88,7 @@ export default async function ContactPage() {
                     </div>
                   </a>
                   <a
-                    href={AGENT.calendly}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="#listing"
                     className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
                   >
                     <div>
@@ -155,10 +159,10 @@ export default async function ContactPage() {
           </h2>
           <p className="text-lg text-primary-200 mb-8 max-w-xl mx-auto">
             A CMA uses closed {place} sales and the actives buyers will tour this weekend.
-            No valley-wide average. Call {AGENT.phone}.
+            No valley-wide average. Book a listing consultation or call {AGENT.phone}.
           </p>
-          <a href={`tel:${AGENT.phoneTel}`} className="btn-gold text-base px-8 py-4">
-            Request free valuation — {AGENT.phone}
+          <a href="#listing" className="btn-gold text-base px-8 py-4">
+            Book listing consultation
           </a>
         </div>
       </section>

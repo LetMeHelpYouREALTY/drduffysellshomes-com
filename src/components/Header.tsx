@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { AGENT } from '@/config/agent';
 import type { DomainConfig } from '@/config/domains';
+import { openCalendlyPopup } from '@/components/CalendlyBadge';
 
 export default function Header({ config }: { config: DomainConfig }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,8 +52,15 @@ export default function Header({ config }: { config: DomainConfig }) {
             >
               {AGENT.phone}
             </a>
-            <a href="/contact#valuation" className="btn-primary text-sm px-4 py-2">
-              Get Home Value
+            <a
+              href="#schedule"
+              className="btn-primary text-sm px-4 py-2"
+              onClick={(event) => {
+                event.preventDefault();
+                openCalendlyPopup();
+              }}
+            >
+              Schedule a call
             </a>
           </div>
 
@@ -92,8 +100,16 @@ export default function Header({ config }: { config: DomainConfig }) {
                 >
                   Call: {AGENT.phone}
                 </a>
-                <a href="/contact#valuation" className="btn-primary w-full text-center">
-                  Get Home Value
+                <a
+                  href="#schedule"
+                  className="btn-primary w-full text-center"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    openCalendlyPopup();
+                    setMenuOpen(false);
+                  }}
+                >
+                  Schedule a call
                 </a>
               </div>
             </nav>

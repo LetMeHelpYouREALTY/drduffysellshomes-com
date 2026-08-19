@@ -20,8 +20,8 @@ export default function SellerCta({
             `Get a current ${neighborhood} market analysis and a listing plan for your address. Call ${AGENT.name} at ${AGENT.phone}.`}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/contact#valuation" className="btn-gold text-base px-8 py-4">
-            Free Home Valuation
+          <a href="#schedule" className="btn-gold text-base px-8 py-4">
+            Schedule a listing consultation
           </a>
           <a
             href={`tel:${AGENT.phoneTel}`}

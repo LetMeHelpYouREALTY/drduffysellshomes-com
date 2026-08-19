@@ -102,9 +102,9 @@ export default async function NeighborhoodPage({ params }: PageProps) {
         neighborhood={neighborhood.name}
       >
         <div className="mt-8 flex flex-col sm:flex-row gap-4">
-          <a href="/contact#valuation" className="btn-gold">
-            Get my {neighborhood.name} home value
-          </a>
+            <a href="#schedule" className="btn-gold">
+              Get my {neighborhood.name} home value
+            </a>
           <a
             href={`tel:${AGENT.phoneTel}`}
             className="btn-secondary !text-white !border-white/30 hover:!bg-white/10"
@@ -143,7 +143,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
                 <a href={`mailto:${AGENT.email}`}>{AGENT.email}</a>
               </p>
             </address>
-            <a href="/contact#valuation" className="btn-primary w-full text-center">
+            <a href="#listing" className="btn-primary w-full text-center">
               Request CMA
             </a>
           </aside>

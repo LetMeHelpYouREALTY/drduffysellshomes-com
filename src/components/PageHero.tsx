@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { RealScoutCarousel } from '@/components/RealScoutWidget';
+import CalendlyWidgets from '@/components/CalendlyWidgets';
 
 type PageHeroProps = {
   title: string;
@@ -47,6 +48,7 @@ export default function PageHero({
         </div>
       </section>
       <RealScoutCarousel neighborhood={neighborhood} />
+      <CalendlyWidgets />
     </>
   );
 }

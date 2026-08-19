@@ -1,5 +1,6 @@
 import { AGENT } from '@/config/agent';
 import { RealScoutCarousel } from '@/components/RealScoutWidget';
+import CalendlyWidgets from '@/components/CalendlyWidgets';
 
 export default function NotFound() {
   return (
@@ -28,6 +29,7 @@ export default function NotFound() {
         </div>
       </section>
       <RealScoutCarousel neighborhood="Las Vegas" />
+      <CalendlyWidgets />
     </>
   );
 }

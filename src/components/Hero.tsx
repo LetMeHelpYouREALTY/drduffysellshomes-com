@@ -2,6 +2,7 @@ import { AGENT } from '@/config/agent';
 import type { DomainConfig } from '@/config/domains';
 import type { Neighborhood } from '@/config/neighborhoods';
 import { RealScoutCarousel, RealScoutSearch } from '@/components/RealScoutWidget';
+import CalendlyWidgets from '@/components/CalendlyWidgets';
 import { getSellerHero } from '@/lib/sellerCopy';
 
 export default function Hero({
@@ -44,7 +45,7 @@ export default function Hero({
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="/contact#valuation" className="btn-gold text-base px-8 py-4">
+              <a href="#schedule" className="btn-gold text-base px-8 py-4">
                 Get My {place} Home Value
               </a>
               <a
@@ -101,6 +102,7 @@ export default function Hero({
       </div>
     </section>
       <RealScoutCarousel neighborhood={place} />
+      <CalendlyWidgets />
     </>
   );
 }

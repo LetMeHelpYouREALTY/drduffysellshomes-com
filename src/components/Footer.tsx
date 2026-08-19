@@ -52,7 +52,7 @@ export default function Footer({ config }: { config: DomainConfig }) {
                 { label: 'All Las Vegas neighborhoods', href: '/neighborhoods' },
                 { label: "What's selling now", href: '/listings' },
                 { label: 'How we sell', href: '/sell' },
-                { label: 'Free home valuation', href: '/contact#valuation' },
+                { label: 'Schedule a listing consultation', href: '#schedule' },
                 { label: 'About Dr. Duffy', href: '/about' },
               ].map((link) => (
                 <li key={link.href}>

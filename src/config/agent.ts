@@ -32,7 +32,7 @@ export const AGENT = {
   ],
 
   // Links
-  calendly: 'https://calendly.com/drjanduffy',
+  calendly: 'https://calendly.com/drjanduffy/listing-consultation',
   realscoutAgentId: 'drjanduffy',
   googleReviews: 'https://g.page/r/CYmVqofF2JYBEAI/review',
   googleMapsEmbed:

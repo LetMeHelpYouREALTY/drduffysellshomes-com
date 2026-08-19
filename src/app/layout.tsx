@@ -11,6 +11,8 @@ import NapBar from '@/components/NapBar';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { getSellerHero } from '@/lib/sellerCopy';
 import { REALSCOUT_SCRIPT_SRC } from '@/components/RealScoutWidget';
+import CalendlyBadge from '@/components/CalendlyBadge';
+import { CALENDLY_SCRIPT_SRC, CALENDLY_WIDGET_CSS } from '@/config/calendly';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -102,8 +104,11 @@ export default async function RootLayout({
       <head>
         <link rel="preconnect" href="https://imagedelivery.net" />
         <link rel="preconnect" href="https://em.realscout.com" />
+        <link rel="preconnect" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://em.realscout.com" />
         <link rel="dns-prefetch" href="https://www.realscout.com" />
+        <link rel="dns-prefetch" href="https://calendly.com" />
+        <link rel="stylesheet" href={CALENDLY_WIDGET_CSS} />
         <SchemaMarkup config={config} />
       </head>
       <body className="min-h-screen flex flex-col">
@@ -113,6 +118,12 @@ export default async function RootLayout({
           type="module"
           strategy="afterInteractive"
         />
+        <Script
+          id="calendly-widget"
+          src={CALENDLY_SCRIPT_SRC}
+          strategy="afterInteractive"
+        />
+        <CalendlyBadge />
         <NapBar />
         <Header config={config} />
         <main className="flex-1">{children}</main>
