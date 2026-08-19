@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { AGENT } from '@/config/agent';
+import { OG_IMAGE_ALT, socialShareImages } from '@/lib/siteHost';
 
 type PageMetaInput = {
   title: string;
@@ -16,9 +17,12 @@ export function buildPageMetadata({
   baseUrl,
   keywords = [],
 }: PageMetaInput): Metadata {
-  const url = path === '/' ? baseUrl : `${baseUrl}${path}`;
+  const origin = baseUrl.replace(/\/+$/, '');
+  const url = path === '/' ? origin : `${origin}${path}`;
+  const { ogImage, twitterImage } = socialShareImages(origin);
 
   return {
+    metadataBase: new URL(origin),
     title,
     description,
     keywords,
@@ -32,11 +36,13 @@ export function buildPageMetadata({
       title,
       description,
       siteName: 'Dr. Duffy Sells Homes',
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [twitterImage],
     },
     robots: {
       index: true,
@@ -54,6 +60,8 @@ export function buildPageMetadata({
       'geo.placename': AGENT.address.city,
       'geo.position': '36.22;-115.33',
       ICBM: '36.22, -115.33',
+      'og:image:alt': OG_IMAGE_ALT,
+      'twitter:image:alt': OG_IMAGE_ALT,
     },
   };
 }

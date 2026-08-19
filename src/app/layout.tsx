@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { getDomainConfig } from '@/lib/getDomainConfig';
-import { getSiteUrl } from '@/lib/siteUrl';
+import { getPublicSiteUrl, socialShareImages } from '@/lib/siteUrl';
 import { AGENT } from '@/config/agent';
 import { findNeighborhoodForName } from '@/config/neighborhoods';
 import Header from '@/components/Header';
@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getDomainConfig();
-  const baseUrl = await getSiteUrl();
+  const siteUrl = getPublicSiteUrl();
   const neighborhood = findNeighborhoodForName(config.neighborhood);
   const hero = getSellerHero(config, neighborhood);
   const titleDefault = `${hero.title} | ${AGENT.name}, REALTOR®`;
@@ -32,9 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
   const bingVerification = process.env.BING_SITE_VERIFICATION;
+  const { ogImage, twitterImage } = socialShareImages(siteUrl);
 
   return {
-    metadataBase: new URL(baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`),
+    metadataBase: new URL(siteUrl),
     title: {
       default: titleDefault,
       template: `%s | ${config.name}`,
@@ -59,15 +60,17 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: 'en_US',
-      url: baseUrl,
+      url: siteUrl,
       title: titleDefault,
       description,
       siteName: config.name,
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
       title: titleDefault,
       description,
+      images: [twitterImage],
     },
     robots: {
       index: true,
@@ -81,13 +84,15 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     alternates: {
-      canonical: baseUrl,
+      canonical: siteUrl,
     },
     other: {
       'geo.region': 'US-NV',
       'geo.placename': 'Las Vegas',
       'geo.position': '36.22;-115.33',
       ICBM: '36.22, -115.33',
+      'og:image:alt': ogImage.alt,
+      'twitter:image:alt': twitterImage.alt,
     },
   };
 }

@@ -52,7 +52,7 @@ export default async function SchemaMarkup({
     url: baseUrl,
     telephone: AGENT.phone,
     email: AGENT.email,
-    image: AGENT.headshotUrl,
+    image: [AGENT.headshotUrl, `${baseUrl}/og/opengraph.jpg`],
     logo: AGENT.logoUrl,
     priceRange: '$$$',
     currenciesAccepted: 'USD',

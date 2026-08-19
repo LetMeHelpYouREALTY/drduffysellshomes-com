@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "check:www": "node scripts/check-www-canonical.mjs"
+    "check:www": "node scripts/check-www-canonical.mjs",
+    "check:og": "node scripts/check-og-images.mjs"
   },
   "dependencies": {
     "next": "^15.1.0",
