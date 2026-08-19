@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
-const origin = 'https://drduffysellshomes.com';
+const origin = 'https://www.drduffysellshomes.com';
 const lastmod = '2026-08-19';
 
 const staticPages = [

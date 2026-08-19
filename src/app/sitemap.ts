@@ -1,14 +1,12 @@
 import type { MetadataRoute } from 'next';
 import { getSiteUrl } from '@/lib/siteUrl';
-import {
-  PRODUCTION_SITE_URL,
-  buildSitemapEntries,
-} from '@/lib/sitemapEntries';
+import { PRODUCTION_SITE_URL } from '@/lib/siteHost';
+import { buildSitemapEntries } from '@/lib/sitemapEntries';
 
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  let baseUrl = PRODUCTION_SITE_URL;
+  let baseUrl = process.env.NEXT_PUBLIC_SITE_URL || PRODUCTION_SITE_URL;
 
   try {
     const requestUrl = await getSiteUrl();

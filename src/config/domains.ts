@@ -333,6 +333,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     heroSubtitle: 'Lifetime support for homeowners. From purchase to maintenance — Dr. Duffy has you covered.',
   },
 
+  // Canonical host is www; middleware 308s the apex here. Lookup strips www.
   'drduffysellshomes.com': {
     name: 'Dr. Duffy Sells Homes',
     neighborhood: 'Las Vegas Valley',

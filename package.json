@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sitemap": "node scripts/generate-sitemap.mjs"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "check:www": "node scripts/check-www-canonical.mjs"
   },
   "dependencies": {
     "next": "^15.1.0",

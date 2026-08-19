@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   trailingSlash: false,
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'drduffysellshomes.com' }],
+        destination: 'https://www.drduffysellshomes.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

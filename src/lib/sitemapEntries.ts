@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getAllNeighborhoods } from '@/config/neighborhoods';
+import { PRODUCTION_SITE_URL } from '@/lib/siteHost';
 
-export const PRODUCTION_SITE_URL = 'https://drduffysellshomes.com';
+export { PRODUCTION_SITE_URL };
 export const SITEMAP_LASTMOD = '2026-08-19';
 
 type Freq = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
@@ -28,7 +29,8 @@ function loc(baseUrl: string, path: string): string {
 /**
  * Absolute sitemap entries for Google Search Console.
  * Homepage loc has no trailing slash so it matches page canonicals
- * (`trailingSlash: false` in next.config.ts).
+ * (`trailingSlash: false` in next.config.ts). Production locs use
+ * https://www.drduffysellshomes.com only.
  */
 export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
   const lastModified = new Date(`${SITEMAP_LASTMOD}T00:00:00.000Z`);

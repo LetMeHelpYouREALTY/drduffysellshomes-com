@@ -1,32 +1,43 @@
 import { headers } from 'next/headers';
+import {
+  CANONICAL_HOST,
+  canonicalizeHostname,
+  hostnameFromHeader,
+  siteOriginFromHostname,
+} from '@/lib/siteHost';
 
-const FALLBACK_HOST = 'drduffysellshomes.com';
+export {
+  APEX_HOST,
+  CANONICAL_HOST,
+  PRODUCTION_SITE_URL,
+  canonicalizeHostname,
+  configLookupHostname,
+  hostnameFromHeader,
+  isApexSellerHost,
+  siteOriginFromHostname,
+} from '@/lib/siteHost';
 
 /**
  * Absolute origin for the current hostname.
- * Required so canonicals, Open Graph URLs, and sitemap entries
- * resolve correctly for Google Search Console on every domain.
+ * Canonicals, Open Graph URLs, JSON-LD, and sitemap entries must agree
+ * on https://www.drduffysellshomes.com for this production site.
  */
 export async function getSiteUrl(): Promise<string> {
   const headersList = await headers();
-  const raw =
-    headersList.get('x-forwarded-host') ||
-    headersList.get('host') ||
-    FALLBACK_HOST;
-  const host = raw.split(':')[0].toLowerCase();
+  const host = hostnameFromHeader(
+    headersList.get('x-forwarded-host') || headersList.get('host'),
+  );
 
-  if (host === 'localhost' || host.startsWith('127.')) {
-    return `http://${host}`;
-  }
-
-  return `https://${host}`;
+  return siteOriginFromHostname(host);
 }
 
 export async function getHost(): Promise<string> {
   const headersList = await headers();
-  const raw =
-    headersList.get('x-forwarded-host') ||
-    headersList.get('host') ||
-    FALLBACK_HOST;
-  return raw.split(':')[0].toLowerCase();
+  return canonicalizeHostname(
+    hostnameFromHeader(
+      headersList.get('x-forwarded-host') ||
+        headersList.get('host') ||
+        CANONICAL_HOST,
+    ),
+  );
 }
