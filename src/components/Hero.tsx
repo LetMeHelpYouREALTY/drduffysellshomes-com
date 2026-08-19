@@ -1,7 +1,7 @@
 import { AGENT } from '@/config/agent';
 import type { DomainConfig } from '@/config/domains';
 import type { Neighborhood } from '@/config/neighborhoods';
-import { RealScoutSearch } from '@/components/RealScoutWidget';
+import { RealScoutCarousel, RealScoutSearch } from '@/components/RealScoutWidget';
 import { getSellerHero } from '@/lib/sellerCopy';
 
 export default function Hero({
@@ -15,7 +15,8 @@ export default function Hero({
   const place = neighborhood?.name ?? config.neighborhood;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-bhhs-maroon">
+    <>
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-bhhs-maroon">
       <div className="absolute inset-0 opacity-10">
         <div
           className="absolute inset-0"
@@ -99,5 +100,7 @@ export default function Hero({
         </div>
       </div>
     </section>
+      <RealScoutCarousel neighborhood={place} />
+    </>
   );
 }

@@ -5,6 +5,7 @@ import { findNeighborhoodForName, getAllNeighborhoods } from '@/config/neighborh
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -40,17 +41,11 @@ export default async function AboutPage() {
         ]}
       />
 
-      <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
-        <div className="container-wide mx-auto text-center">
-          <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            {AGENT.name} Sells {place} Homes
-          </h1>
-          <p className="text-lg text-primary-200 max-w-2xl mx-auto">
-            Listing representation for {place} and every major Las Vegas Valley neighborhood —
-            Summerlin villages to Henderson master plans.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title={`${AGENT.name} Sells ${place} Homes`}
+        subtitle={`Listing representation for ${place} and every major Las Vegas Valley neighborhood — Summerlin villages to Henderson master plans.`}
+        neighborhood={place}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">

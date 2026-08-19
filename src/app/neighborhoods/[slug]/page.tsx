@@ -11,6 +11,7 @@ import { buildPageMetadata } from '@/lib/pageMetadata';
 import { getSellerFaqs } from '@/lib/sellerCopy';
 import { RealScoutListings } from '@/components/RealScoutWidget';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageHero from '@/components/PageHero';
 import SellerProcess from '@/components/SellerProcess';
 import SellerCta from '@/components/SellerCta';
 import FaqSection from '@/components/FaqSection';
@@ -93,28 +94,25 @@ export default async function NeighborhoodPage({ params }: PageProps) {
         ]}
       />
 
-      <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
-        <div className="container-wide mx-auto">
-          <p className="text-bhhs-gold text-sm font-semibold uppercase tracking-wider mb-3">
-            {neighborhood.city}, NV {neighborhood.zip} · Listing plan
-          </p>
-          <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            {neighborhood.headline}
-          </h1>
-          <p className="text-lg text-primary-200 max-w-3xl">{neighborhood.subhead}</p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <a href="/contact#valuation" className="btn-gold">
-              Get my {neighborhood.name} home value
-            </a>
-            <a
-              href={`tel:${AGENT.phoneTel}`}
-              className="btn-secondary !text-white !border-white/30 hover:!bg-white/10"
-            >
-              Call {AGENT.phone}
-            </a>
-          </div>
+      <PageHero
+        align="left"
+        eyebrow={`${neighborhood.city}, NV ${neighborhood.zip} · Listing plan`}
+        title={neighborhood.headline}
+        subtitle={neighborhood.subhead}
+        neighborhood={neighborhood.name}
+      >
+        <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          <a href="/contact#valuation" className="btn-gold">
+            Get my {neighborhood.name} home value
+          </a>
+          <a
+            href={`tel:${AGENT.phoneTel}`}
+            className="btn-secondary !text-white !border-white/30 hover:!bg-white/10"
+          >
+            Call {AGENT.phone}
+          </a>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">

@@ -6,6 +6,7 @@ import { findNeighborhoodForName, getAllNeighborhoods } from '@/config/neighborh
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageHero from '@/components/PageHero';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getDomainConfig();
@@ -40,17 +41,11 @@ export default async function ContactPage() {
         ]}
       />
 
-      <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
-        <div className="container-wide mx-auto text-center">
-          <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            List Your {place} Home
-          </h1>
-          <p className="text-lg text-primary-200 max-w-2xl mx-auto">
-            Send the address. We return a {place} CMA and a listing plan — not a valley-wide
-            guess. Call {AGENT.phone} or use the form.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title={`List Your ${place} Home`}
+        subtitle={`Send the address. We return a ${place} CMA and a listing plan — not a valley-wide guess. Call ${AGENT.phone} or use the form.`}
+        neighborhood={place}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">

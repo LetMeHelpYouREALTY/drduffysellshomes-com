@@ -39,6 +39,19 @@ const nextConfig: NextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(self)',
           },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://em.realscout.com https://www.realscout.com https://*.realscout.com https://vercel.live",
+              "connect-src 'self' https://em.realscout.com https://www.realscout.com https://*.realscout.com wss://*.realscout.com https://vercel.live",
+              "img-src 'self' data: blob: https:",
+              "style-src 'self' 'unsafe-inline' https://em.realscout.com",
+              "font-src 'self' data: https:",
+              "frame-src https://www.google.com https://maps.google.com https://calendly.com",
+              "frame-ancestors 'self'",
+            ].join('; '),
+          },
         ],
       },
       {

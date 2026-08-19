@@ -47,4 +47,14 @@
   .realscout-placeholder {
     @apply min-h-[400px] bg-gradient-to-b from-primary-50 to-white rounded-xl border border-primary-100 flex items-center justify-center;
   }
+
+  .realscout-carousel {
+    @apply w-full min-h-[280px];
+  }
+
+  .realscout-carousel realscout-office-listings {
+    --rs-listing-divider-color: #6a1b4d;
+    display: block;
+    width: 100%;
+  }
 }

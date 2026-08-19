@@ -6,6 +6,7 @@ import { RealScoutSearch, RealScoutListings } from '@/components/RealScoutWidget
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -42,17 +43,11 @@ export default async function ListingsPage() {
         ]}
       />
 
-      <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
-        <div className="container-wide mx-auto text-center">
-          <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            What&apos;s Selling in {place}
-          </h1>
-          <p className="text-lg text-primary-200 max-w-2xl mx-auto">
-            Live MLS inventory is the set buyers will compare to your {place} home. We use it
-            for your list price, not a Las Vegas Valley average.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title={`What's Selling in ${place}`}
+        subtitle={`Live MLS inventory is the set buyers will compare to your ${place} home. We use it for your list price, not a Las Vegas Valley average.`}
+        neighborhood={place}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">

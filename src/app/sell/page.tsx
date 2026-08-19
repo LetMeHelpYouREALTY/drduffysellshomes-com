@@ -5,6 +5,7 @@ import { findNeighborhoodForName } from '@/config/neighborhoods';
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageHero from '@/components/PageHero';
 import SellerProcess from '@/components/SellerProcess';
 import SellerCta from '@/components/SellerCta';
 import FaqSection from '@/components/FaqSection';
@@ -42,17 +43,11 @@ export default async function SellPage() {
         ]}
       />
 
-      <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
-        <div className="container-wide mx-auto text-center">
-          <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            How We Sell Homes in {place}
-          </h1>
-          <p className="text-lg text-primary-200 max-w-3xl mx-auto">
-            A listing is a neighborhood campaign. We price to {place} comps, market to buyers
-            already searching that community, and negotiate with the same numbers we used to list.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title={`How We Sell Homes in ${place}`}
+        subtitle={`A listing is a neighborhood campaign. We price to ${place} comps, market to buyers already searching that community, and negotiate with the same numbers we used to list.`}
+        neighborhood={place}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-narrow mx-auto space-y-8 text-primary-700 leading-relaxed">

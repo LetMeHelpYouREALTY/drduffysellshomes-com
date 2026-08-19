@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { getSiteUrl } from '@/lib/siteUrl';
@@ -9,6 +10,7 @@ import Footer from '@/components/Footer';
 import NapBar from '@/components/NapBar';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { getSellerHero } from '@/lib/sellerCopy';
+import { REALSCOUT_SCRIPT_SRC } from '@/components/RealScoutWidget';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -99,11 +101,18 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://imagedelivery.net" />
+        <link rel="preconnect" href="https://em.realscout.com" />
         <link rel="dns-prefetch" href="https://em.realscout.com" />
         <link rel="dns-prefetch" href="https://www.realscout.com" />
         <SchemaMarkup config={config} />
       </head>
       <body className="min-h-screen flex flex-col">
+        <Script
+          id="realscout-web-components"
+          src={REALSCOUT_SCRIPT_SRC}
+          type="module"
+          strategy="afterInteractive"
+        />
         <NapBar />
         <Header config={config} />
         <main className="flex-1">{children}</main>

@@ -4,6 +4,7 @@ import { getNeighborhoodsByRegion } from '@/config/neighborhoods';
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -37,18 +38,11 @@ export default function NeighborhoodsIndexPage() {
         ]}
       />
 
-      <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
-        <div className="container-wide mx-auto text-center">
-          <h1 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
-            Sell Your Home in Every Las Vegas Neighborhood
-          </h1>
-          <p className="text-lg text-primary-200 max-w-3xl mx-auto">
-            Buyers search by community — Summerlin villages, Skye Canyon, Centennial Hills,
-            Henderson master plans, North Las Vegas parks. We list that way. Pick your
-            neighborhood for a selling plan written to that map.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Sell Your Home in Every Las Vegas Neighborhood"
+        subtitle="Buyers search by community — Summerlin villages, Skye Canyon, Centennial Hills, Henderson master plans, North Las Vegas parks. We list that way. Pick your neighborhood for a selling plan written to that map."
+        neighborhood="Las Vegas Valley"
+      />
 
       {groups.map((group) => (
         <section key={group.region} className="section-padding bg-white even:bg-primary-50">
