@@ -9,6 +9,7 @@ import {
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import { getSellerFaqs } from '@/lib/sellerCopy';
+import { faqH2, neighborhoodCardH3, officeH2, sellerH1 } from '@/lib/headings';
 import { RealScoutListings } from '@/components/RealScoutWidget';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const baseUrl = await getSiteUrl();
   return buildPageMetadata({
-    title: `Sell Your ${neighborhood.name} Home | ${neighborhood.city}, NV ${neighborhood.zip}`,
+    title: sellerH1(neighborhood.name, neighborhood.city),
     description: `${neighborhood.headline}. ${neighborhood.subhead} ${AGENT.name}, ${AGENT.brokerage}, lists homes in ${neighborhood.name}. Call ${AGENT.phone}. Office: ${AGENT.address.full}.`,
     path: `/neighborhoods/${neighborhood.slug}`,
     baseUrl,
@@ -76,7 +77,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
           city: neighborhood.city,
           zip: neighborhood.zip,
         }}
-        pageTitle={`Sell Your ${neighborhood.name} Home`}
+        pageTitle={sellerH1(neighborhood.name, neighborhood.city)}
         pageDescription={neighborhood.intro}
         path={`/neighborhoods/${neighborhood.slug}`}
         breadcrumbs={[
@@ -97,7 +98,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
       <PageHero
         align="left"
         eyebrow={`${neighborhood.city}, NV ${neighborhood.zip} · Listing plan`}
-        title={neighborhood.headline}
+        title={sellerH1(neighborhood.name, neighborhood.city)}
         subtitle={neighborhood.subhead}
         neighborhood={neighborhood.name}
       >
@@ -118,7 +119,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
         <div className="container-wide mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-6">
             <h2 className="text-2xl font-display font-bold text-primary-900">
-              Selling in {neighborhood.name}
+              How do I sell a home in {neighborhood.name}?
             </h2>
             <p className="text-primary-700 leading-relaxed">{neighborhood.intro}</p>
             <p className="text-primary-700 leading-relaxed">{neighborhood.sellingAngle}</p>
@@ -128,7 +129,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
             </p>
           </div>
           <aside className="p-6 rounded-xl bg-primary-50 border border-primary-100 h-fit">
-            <h2 className="font-display font-bold text-primary-900 mb-4">List with Dr. Duffy</h2>
+            <h2 className="font-display font-bold text-primary-900 mb-4">{officeH2()}</h2>
             <p className="text-sm text-primary-700 mb-4">
               {AGENT.name} · {AGENT.brokerage}
             </p>
@@ -154,7 +155,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
         <div className="container-wide mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <h2 className="text-2xl font-display font-bold text-primary-900 mb-4">
-              Amenities buyers search in {neighborhood.name}
+              Which amenities should a {neighborhood.name} listing highlight?
             </h2>
             <ul className="space-y-3">
               {neighborhood.amenities.map((item) => (
@@ -167,7 +168,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
           </div>
           <div>
             <h2 className="text-2xl font-display font-bold text-primary-900 mb-4">
-              How we list a {neighborhood.name} home
+              How does {AGENT.name} list a {neighborhood.name} home?
             </h2>
             <ol className="space-y-3">
               {neighborhood.listingTips.map((tip, index) => (
@@ -183,7 +184,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
       <section className="section-padding bg-primary-50">
         <div className="container-wide mx-auto">
           <h2 className="text-3xl font-display font-bold text-primary-900 mb-4 text-center">
-            Homes currently listed in and around {neighborhood.name}
+            Which homes are currently listed in and around {neighborhood.name}?
           </h2>
           <p className="text-center text-primary-600 mb-8 max-w-2xl mx-auto">
             This is the inventory buyers will compare to yours. We use it to set your list price
@@ -199,7 +200,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
         <section className="section-padding bg-white">
           <div className="container-wide mx-auto">
             <h2 className="text-3xl font-display font-bold text-primary-900 mb-8 text-center">
-              Nearby neighborhoods we also sell
+              Which nearby neighborhoods does {AGENT.name} also sell?
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((n) => (
@@ -209,7 +210,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
                   className="p-5 rounded-xl border border-primary-100 hover:border-bhhs-gold/40 hover:shadow-md transition-all"
                 >
                   <h3 className="font-display font-bold text-primary-900 mb-2">
-                    Sell your {n.name} home
+                    {neighborhoodCardH3(n.name, n.city)}
                   </h3>
                   <p className="text-sm text-primary-600">{n.subhead}</p>
                 </a>
@@ -220,7 +221,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
       )}
 
       <SellerCta neighborhood={neighborhood.name} />
-      <FaqSection heading={`${neighborhood.name} seller questions`} faqs={faqs} />
+      <FaqSection heading={faqH2(neighborhood.name)} faqs={faqs} />
     </>
   );
 }

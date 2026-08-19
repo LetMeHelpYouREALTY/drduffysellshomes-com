@@ -10,7 +10,18 @@ import NeighborhoodGrid from '@/components/NeighborhoodGrid';
 import SellerProcess from '@/components/SellerProcess';
 import SellerCta from '@/components/SellerCta';
 import FaqSection from '@/components/FaqSection';
+import SchemaMarkup from '@/components/SchemaMarkup';
 import { getSellerFaqs } from '@/lib/sellerCopy';
+import {
+  competingListingsH2,
+  faqH2,
+  neighborhoodsIndexH1,
+  sellerH1,
+  SELLER_FEATURE_H3,
+  whatBuyersPayH2,
+  whoListsH2,
+  whySellersH2,
+} from '@/lib/headings';
 
 export const revalidate = 3600;
 
@@ -22,14 +33,23 @@ export default async function HomePage() {
 
   return (
     <>
+      <SchemaMarkup
+        entities="page"
+        config={config}
+        pageTitle={sellerH1(place, config.city)}
+        pageDescription={
+          neighborhood?.intro ??
+          `Sell your home in ${place} with ${AGENT.name}. Neighborhood comps, listing marketing, and seller representation across the Las Vegas Valley. ${AGENT.address.full}. Call ${AGENT.phone}.`
+        }
+      />
       <Hero config={config} neighborhood={neighborhood} />
 
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-4">
-              Why {place} Sellers List with {AGENT.name}
-            </h2>
+          <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-4">
+            {whySellersH2(place)}
+          </h2>
             <p className="text-lg text-primary-600 max-w-2xl mx-auto">
               {neighborhood
                 ? neighborhood.sellingAngle
@@ -40,27 +60,27 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'Street-level pricing',
+                title: SELLER_FEATURE_H3[0].title,
                 desc: `We pull closed ${place} sales that match your plan, lot, and condition. A valley median is not a list price.`,
               },
               {
-                title: 'Neighborhood marketing',
+                title: SELLER_FEATURE_H3[1].title,
                 desc: `Photos, remarks, and ads name ${place} amenities and commute — the filters buyers already use.`,
               },
               {
-                title: 'Live competition watch',
+                title: SELLER_FEATURE_H3[2].title,
                 desc: `While you are on the market we track new ${place} listings so you are not blindsided by a price cut next door.`,
               },
               {
-                title: 'Luxury & production playbooks',
+                title: SELLER_FEATURE_H3[3].title,
                 desc: 'Guard-gated estates and tract homes do not share a flyer. We pick the playbook your address actually needs.',
               },
               {
-                title: 'Net-sheet before you sign',
+                title: SELLER_FEATURE_H3[4].title,
                 desc: 'You see estimated closing costs, payoff, and net before the listing agreement — then we update it with every offer.',
               },
               {
-                title: 'BHHS reach, local listing',
+                title: SELLER_FEATURE_H3[5].title,
                 desc: `${AGENT.brokerage} tools plus a listing agent who sells ${place} every week. Call ${AGENT.phone}.`,
               },
             ].map((feature) => (
@@ -83,7 +103,7 @@ export default async function HomePage() {
           <div className="container-wide mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <h2 className="text-3xl font-display font-bold text-primary-900 mb-4">
-                What Buyers Pay For in {neighborhood.name}
+                {whatBuyersPayH2(neighborhood.name)}
               </h2>
               <p className="text-primary-700 leading-relaxed mb-6">{neighborhood.intro}</p>
               <p className="text-primary-700 leading-relaxed mb-6">{neighborhood.marketingPlan}</p>
@@ -93,7 +113,7 @@ export default async function HomePage() {
             </div>
             <div>
               <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
-                Amenities we put in your listing
+                Which {neighborhood.name} amenities belong in the listing remarks?
               </h3>
               <ul className="space-y-3 mb-8">
                 {neighborhood.amenities.map((item) => (
@@ -104,7 +124,7 @@ export default async function HomePage() {
                 ))}
               </ul>
               <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
-                {neighborhood.name} listing tips
+                How should a {neighborhood.name} seller prepare to list?
               </h3>
               <ul className="space-y-3">
                 {neighborhood.listingTips.map((tip) => (
@@ -128,7 +148,7 @@ export default async function HomePage() {
         <div className="container-wide mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-4">
-              Active {place} Listings — Your Competition
+              {competingListingsH2(place)}
             </h2>
             <p className="text-lg text-primary-600 max-w-2xl mx-auto">
               Buyers touring this weekend will open these homes next. We price and stage yours
@@ -148,7 +168,7 @@ export default async function HomePage() {
 
       <NeighborhoodGrid
         neighborhoods={allNeighborhoods}
-        heading="Sell Your Home in Every Las Vegas Neighborhood"
+        heading={neighborhoodsIndexH1()}
         intro="Each community has its own buyer pool, HOA facts, and comparable set. Pick your neighborhood for a listing plan written for that map — not a generic Las Vegas flyer."
       />
 
@@ -157,7 +177,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-6">
-                The listing agent who sells {place}
+                {whoListsH2(place)}
               </h2>
               <p className="text-lg text-primary-600 leading-relaxed mb-6">
                 {AGENT.shortBio} {AGENT.name} lists homes in {place} and across Summerlin,
@@ -208,7 +228,7 @@ export default async function HomePage() {
       <SellerCta neighborhood={place} />
 
       <FaqSection
-        heading={`Selling a home in ${place}`}
+        heading={faqH2(place)}
         faqs={getSellerFaqs(place, config.city)}
       />
     </>

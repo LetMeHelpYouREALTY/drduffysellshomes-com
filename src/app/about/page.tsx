@@ -7,13 +7,14 @@ import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
+import { aboutH1, officeH2 } from '@/lib/headings';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getDomainConfig();
   const baseUrl = await getSiteUrl();
   const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
   return buildPageMetadata({
-    title: `${AGENT.name} — Listing Agent Selling ${place} Homes`,
+    title: aboutH1(place),
     description: `${AGENT.shortBio} ${AGENT.name} sells homes in ${place} and across Las Vegas neighborhoods. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}.`,
     path: '/about',
     baseUrl,
@@ -42,7 +43,7 @@ export default async function AboutPage() {
       />
 
       <PageHero
-        title={`${AGENT.name} Sells ${place} Homes`}
+        title={aboutH1(place)}
         subtitle={`Listing representation for ${place} and every major Las Vegas Valley neighborhood — Summerlin villages to Henderson master plans.`}
         neighborhood={place}
       />
@@ -66,7 +67,7 @@ export default async function AboutPage() {
                   )}
                 </div>
                 <div className="bg-primary-50 rounded-xl p-6">
-                  <h2 className="font-display font-bold text-primary-900 mb-3">Office</h2>
+                  <h2 className="font-display font-bold text-primary-900 mb-3">{officeH2()}</h2>
                   <div className="space-y-2 text-sm">
                     <p>
                       <span className="text-primary-500">Phone:</span>{' '}
@@ -99,7 +100,7 @@ export default async function AboutPage() {
 
             <div className="lg:col-span-3">
               <h2 className="text-2xl font-display font-bold text-primary-900 mb-6">
-                {AGENT.fullName}
+                Who is {AGENT.fullName}, REALTOR® in Las Vegas?
               </h2>
               <p className="text-sm text-bhhs-maroon font-semibold mb-6">
                 {AGENT.title} | {AGENT.brokerage}
@@ -122,7 +123,7 @@ export default async function AboutPage() {
 
               <div className="mt-10">
                 <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
-                  Credentials
+                  What credentials does {AGENT.name} hold as a Las Vegas listing agent?
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {AGENT.credentials.map((cred) => (
@@ -149,7 +150,7 @@ export default async function AboutPage() {
 
               <div className="mt-10">
                 <h3 className="text-xl font-display font-bold text-primary-900 mb-4">
-                  Neighborhoods we sell
+                  Which Las Vegas neighborhoods does {AGENT.name} sell in?
                 </h3>
                 <p className="text-primary-600 mb-4">
                   Every name below is a dedicated selling page — not a tag on a generic bio.
@@ -171,7 +172,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <SellerCta neighborhood={place} heading={`List your ${place} home with ${AGENT.name}`} />
+      <SellerCta neighborhood={place} heading={`Ready to sell your ${place} home with ${AGENT.name}?`} />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { getSiteUrl } from '@/lib/siteUrl';
 import { AGENT } from '@/config/agent';
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { getAllNeighborhoods } from '@/config/neighborhoods';
+import { sellerH1 } from '@/lib/headings';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,14 +15,14 @@ export async function GET() {
     .map((n) => `- [${n.name} — sell your home](${baseUrl}/neighborhoods/${n.slug})`)
     .join('\n');
 
-  const content = `# ${config.name}
+  const content = `# ${sellerH1(config.neighborhood, config.city)}
 
 > Listing site for selling homes in ${config.neighborhood} and every major Las Vegas Valley neighborhood.
 
-## About
+## Who is ${AGENT.name}?
 ${AGENT.name} is a licensed REALTOR® (NV #${AGENT.license}) with ${AGENT.brokerage}. This site is built to sell homes — neighborhood by neighborhood — not to publish generic Las Vegas copy. Office: ${AGENT.address.full}. Phone: ${AGENT.phone}.
 
-## What we do
+## How does ${AGENT.name} sell a home in ${config.neighborhood}?
 - Seller representation and listing marketing
 - Comparative market analysis using neighborhood comps
 - MLS launch, portal syndication, and competing-inventory watch

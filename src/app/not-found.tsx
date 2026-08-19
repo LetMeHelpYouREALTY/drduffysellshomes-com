@@ -1,6 +1,7 @@
 import { AGENT } from '@/config/agent';
 import { RealScoutCarousel } from '@/components/RealScoutWidget';
 import CalendlyWidgets from '@/components/CalendlyWidgets';
+import { notFoundH1 } from '@/lib/headings';
 
 export default function NotFound() {
   return (
@@ -9,7 +10,7 @@ export default function NotFound() {
         <div className="container-narrow mx-auto text-center">
           <p className="text-6xl font-display font-bold text-primary-200 mb-4">404</p>
           <h1 className="text-2xl font-display font-bold text-primary-900 mb-4">
-            Page not found
+            {notFoundH1()}
           </h1>
           <p className="text-primary-600 mb-8 max-w-md mx-auto">
             That URL is not a selling page on this site. Use a Las Vegas neighborhood page or

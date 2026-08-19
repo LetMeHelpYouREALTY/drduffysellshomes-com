@@ -1,16 +1,20 @@
 import type { DomainConfig } from '@/config/domains';
 import type { Neighborhood } from '@/config/neighborhoods';
+import { sellerH1 } from '@/lib/headings';
 
 export function getSellerHero(
   config: DomainConfig,
   neighborhood?: Neighborhood,
 ): { title: string; subtitle: string } {
   if (neighborhood) {
-    return { title: neighborhood.headline, subtitle: neighborhood.subhead };
+    return {
+      title: sellerH1(neighborhood.name, neighborhood.city),
+      subtitle: neighborhood.subhead,
+    };
   }
 
   return {
-    title: `Sell Your ${config.neighborhood} Home`,
+    title: sellerH1(config.neighborhood, config.city),
     subtitle: `A listing plan for ${config.neighborhood} — street-level comps, marketing that names the community, and a launch built to get offers.`,
   };
 }

@@ -52,7 +52,7 @@ export function RealScoutCarousel({ neighborhood }: { neighborhood?: string }) {
             Live MLS carousel
           </p>
           <h2 className="text-2xl lg:text-3xl font-display font-bold text-primary-900 mb-2">
-            {place} homes buyers are touring
+            Which {place} homes are buyers touring this week?
           </h2>
           <p className="text-sm text-primary-600 max-w-2xl mx-auto">
             This is the inventory a buyer will open next to yours. We price and market your{' '}

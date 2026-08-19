@@ -13,6 +13,7 @@ export const CALENDLY_WIDGETS = [
   {
     id: 'listing',
     slug: 'listing-consultation',
+    heading: 'How do I book a Las Vegas listing consultation?',
     title: 'Listing Consultation',
     duration: '30 min',
     description:
@@ -22,6 +23,7 @@ export const CALENDLY_WIDGETS = [
   {
     id: 'strategy',
     slug: '15min',
+    heading: 'What is a 15-minute Las Vegas market strategy call?',
     title: 'Free Market Strategy Call',
     duration: '15 min',
     description:
@@ -31,6 +33,7 @@ export const CALENDLY_WIDGETS = [
   {
     id: 'buyer',
     slug: 'buyer-consultation-30-min',
+    heading: 'How do I book a Las Vegas buyer consultation?',
     title: 'Buyer Consultation',
     duration: '30 min',
     description:

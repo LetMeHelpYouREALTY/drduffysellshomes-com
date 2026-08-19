@@ -6,11 +6,12 @@ import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
+import { neighborhoodCardH3, neighborhoodsIndexH1, regionSellH2 } from '@/lib/headings';
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = await getSiteUrl();
   return buildPageMetadata({
-    title: 'Sell Your Home in Every Las Vegas Neighborhood',
+    title: neighborhoodsIndexH1(),
     description: `Neighborhood-by-neighborhood listing plans for Summerlin, Skye Canyon, Centennial Hills, Henderson, Southern Highlands, and more. ${AGENT.name} sells homes across the Las Vegas Valley. Call ${AGENT.phone}.`,
     path: '/neighborhoods',
     baseUrl,
@@ -39,7 +40,7 @@ export default function NeighborhoodsIndexPage() {
       />
 
       <PageHero
-        title="Sell Your Home in Every Las Vegas Neighborhood"
+        title={neighborhoodsIndexH1()}
         subtitle="Buyers search by community — Summerlin villages, Skye Canyon, Centennial Hills, Henderson master plans, North Las Vegas parks. We list that way. Pick your neighborhood for a selling plan written to that map."
         neighborhood="Las Vegas Valley"
       />
@@ -48,7 +49,7 @@ export default function NeighborhoodsIndexPage() {
         <section key={group.region} className="section-padding bg-white even:bg-primary-50">
           <div className="container-wide mx-auto">
             <h2 className="text-2xl lg:text-3xl font-display font-bold text-primary-900 mb-8">
-              {group.label}
+              {regionSellH2(group.label)}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {group.neighborhoods.map((n) => (
@@ -61,7 +62,7 @@ export default function NeighborhoodsIndexPage() {
                     {n.city}, NV {n.zip}
                   </p>
                   <h3 className="text-xl font-display font-bold text-primary-900 mb-2">
-                    Sell your {n.name} home
+                    {neighborhoodCardH3(n.name, n.city)}
                   </h3>
                   <p className="text-sm text-primary-600 leading-relaxed">{n.subhead}</p>
                 </a>
@@ -73,7 +74,7 @@ export default function NeighborhoodsIndexPage() {
 
       <SellerCta
         neighborhood="Las Vegas Valley"
-        heading="Not sure which neighborhood page to use?"
+        heading="Not sure which Las Vegas neighborhood listing page to use?"
         body={`Call ${AGENT.name} at ${AGENT.phone} with your address. We will pull the right comps for your tract.`}
       />
     </>

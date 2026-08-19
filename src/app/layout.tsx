@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteUrl = getPublicSiteUrl();
   const neighborhood = findNeighborhoodForName(config.neighborhood);
   const hero = getSellerHero(config, neighborhood);
-  const titleDefault = `${hero.title} | ${AGENT.name}, REALTOR®`;
+  const titleDefault = hero.title;
   const description =
     neighborhood?.intro ??
     `Sell your home in ${config.neighborhood} with ${AGENT.name}. Neighborhood comps, listing marketing, and seller representation across the Las Vegas Valley. ${AGENT.address.full}. Call ${AGENT.phone}.`;
@@ -103,6 +103,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const config = await getDomainConfig();
+  const neighborhood = findNeighborhoodForName(config.neighborhood);
+  const hero = getSellerHero(config, neighborhood);
+  const description =
+    neighborhood?.intro ??
+    `Sell your home in ${config.neighborhood} with ${AGENT.name}. Neighborhood comps, listing marketing, and seller representation across the Las Vegas Valley. ${AGENT.address.full}. Call ${AGENT.phone}.`;
 
   return (
     <html lang="en">
@@ -114,7 +119,11 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://www.realscout.com" />
         <link rel="dns-prefetch" href="https://calendly.com" />
         <link rel="stylesheet" href={CALENDLY_WIDGET_CSS} />
-        <SchemaMarkup config={config} />
+        <SchemaMarkup
+          config={config}
+          pageTitle={hero.title}
+          pageDescription={description}
+        />
       </head>
       <body className="min-h-screen flex flex-col">
         <Script

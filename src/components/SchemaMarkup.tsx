@@ -1,6 +1,7 @@
 import { AGENT } from '@/config/agent';
 import type { DomainConfig } from '@/config/domains';
 import { getSiteUrl } from '@/lib/siteUrl';
+import { sellerH1 } from '@/lib/headings';
 
 type Breadcrumb = {
   name: string;
@@ -116,6 +117,7 @@ export default async function SchemaMarkup({
       config.neighborhood,
       ...(config.keywords || []),
     ],
+    slogan: sellerH1(config.neighborhood, config.city),
     memberOf: {
       '@type': 'Organization',
       '@id': brokerageId,
@@ -143,10 +145,16 @@ export default async function SchemaMarkup({
   const webPage = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: pageTitle || config.name,
+    name: pageTitle || sellerH1(config.neighborhood, config.city),
+    headline: pageTitle || sellerH1(config.neighborhood, config.city),
     description: pageDescription || config.description,
     url: pageUrl,
     isPartOf: { '@id': websiteId },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'h2', 'h3'],
+    },
+    mainEntity: { '@id': agentId },
     about: {
       '@type': 'Place',
       name: config.neighborhood,

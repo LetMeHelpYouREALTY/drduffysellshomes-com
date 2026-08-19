@@ -23,7 +23,9 @@ export function buildPageMetadata({
 
   return {
     metadataBase: new URL(origin),
-    title,
+    title: {
+      absolute: title,
+    },
     description,
     keywords,
     alternates: {

@@ -13,7 +13,7 @@ export default function SellerCta({
     <section className="section-padding bg-gradient-to-r from-bhhs-maroon to-primary-900">
       <div className="container-narrow mx-auto text-center">
         <h2 className="text-3xl lg:text-4xl font-display font-bold text-white mb-4">
-          {heading || `Ready to Sell Your ${neighborhood} Home?`}
+          {heading || `Ready to sell your ${neighborhood} home with ${AGENT.name}?`}
         </h2>
         <p className="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
           {body ||

@@ -6,13 +6,14 @@ import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
+import { contactH1, officeH2 } from '@/lib/headings';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getDomainConfig();
   const baseUrl = await getSiteUrl();
   const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
   return buildPageMetadata({
-    title: `List Your ${place} Home — Contact ${AGENT.name}`,
+    title: contactH1(place),
     description: `Book a ${place} listing consultation or market strategy call with ${AGENT.name}. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`,
     path: '/contact',
     baseUrl,
@@ -41,7 +42,7 @@ export default async function ContactPage() {
       />
 
       <PageHero
-        title={`List Your ${place} Home`}
+        title={contactH1(place)}
         subtitle={`Book a listing consultation or market strategy call. We return a ${place} CMA — not a valley-wide guess. Call ${AGENT.phone} if you need a time that is not on the calendar.`}
         neighborhood={place}
       />
@@ -51,7 +52,7 @@ export default async function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             <div className="lg:col-span-3">
               <h2 className="text-2xl font-display font-bold text-primary-900 mb-4">
-                Book a {place} listing consultation
+                How do I book a {place} listing consultation with {AGENT.name}?
               </h2>
               <p className="text-primary-600 mb-6 leading-relaxed">
                 There is no contact form on this site. Use the calendars above — listing
@@ -66,7 +67,7 @@ export default async function ContactPage() {
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-primary-50 rounded-xl p-6">
                 <h2 className="font-display font-bold text-primary-900 mb-4">
-                  Direct contact
+                  How do I contact {AGENT.name} in Las Vegas?
                 </h2>
                 <div className="space-y-4">
                   <a
@@ -100,7 +101,7 @@ export default async function ContactPage() {
               </div>
 
               <div className="bg-primary-50 rounded-xl p-6">
-                <h2 className="font-display font-bold text-primary-900 mb-4">Office</h2>
+                <h2 className="font-display font-bold text-primary-900 mb-4">{officeH2()}</h2>
                 <address className="not-italic text-sm text-primary-700 space-y-1 mb-4">
                   <p className="font-semibold">{AGENT.brokerage}</p>
                   <p>{AGENT.address.full}</p>
@@ -155,7 +156,7 @@ export default async function ContactPage() {
       <section id="valuation" className="section-padding bg-gradient-to-r from-bhhs-maroon to-primary-900">
         <div className="container-narrow mx-auto text-center">
           <h2 className="text-3xl font-display font-bold text-white mb-4">
-            What is your {place} home worth this week?
+            What is my {place} home worth this week?
           </h2>
           <p className="text-lg text-primary-200 mb-8 max-w-xl mx-auto">
             A CMA uses closed {place} sales and the actives buyers will tour this weekend.
@@ -170,7 +171,7 @@ export default async function ContactPage() {
       <section className="section-padding bg-white">
         <div className="container-wide mx-auto">
           <h2 className="text-2xl font-display font-bold text-primary-900 mb-6">
-            Selling in another Las Vegas neighborhood?
+            How do I sell a home in another Las Vegas neighborhood?
           </h2>
           <div className="flex flex-wrap gap-2">
             {neighborhoods.map((n) => (

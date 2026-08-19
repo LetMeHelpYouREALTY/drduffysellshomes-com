@@ -1,5 +1,6 @@
 import { AGENT } from '@/config/agent';
 import { CALENDLY_WIDGETS } from '@/config/calendly';
+import { scheduleH2 } from '@/lib/headings';
 
 /**
  * All three Calendly event widgets — listing, market strategy, buyer.
@@ -17,7 +18,7 @@ export default function CalendlyWidgets() {
             Book a time
           </p>
           <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary-900 mb-3">
-            Schedule with {AGENT.name}
+            {scheduleH2()}
           </h2>
           <p className="text-primary-600 max-w-2xl mx-auto">
             No contact form. Pick a listing consultation, a 15-minute market strategy call, or a
@@ -29,7 +30,7 @@ export default function CalendlyWidgets() {
           {CALENDLY_WIDGETS.map((widget) => (
             <div key={widget.id} id={widget.id} className="bg-white rounded-2xl border border-primary-100 p-4 sm:p-5">
               <h3 className="text-xl font-display font-bold text-primary-900 mb-1">
-                {widget.title}
+                {widget.heading}
               </h3>
               <p className="text-xs font-semibold uppercase tracking-wider text-bhhs-maroon mb-3">
                 {widget.duration}

@@ -29,7 +29,7 @@ export default function NeighborhoodGrid({
                 {n.city}, NV {n.zip}
               </p>
               <h3 className="text-xl font-display font-bold text-primary-900 mb-2 group-hover:text-bhhs-maroon transition-colors">
-                Sell Your {n.name} Home
+                Sell your {n.name} home in {n.city}, NV
               </h3>
               <p className="text-sm text-primary-600 leading-relaxed mb-4">{n.subhead}</p>
               <span className="text-sm font-semibold text-bhhs-maroon">

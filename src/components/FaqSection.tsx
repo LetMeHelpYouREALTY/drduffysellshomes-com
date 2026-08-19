@@ -16,34 +16,17 @@ export default function FaqSection({
         <h2 className="text-3xl font-display font-bold text-primary-900 mb-8 text-center">
           {heading}
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-6">
           {faqs.map((faq) => (
-            <details
+            <article
               key={faq.question}
-              className="group border border-primary-100 rounded-lg overflow-hidden"
+              className="border border-primary-100 rounded-lg p-5"
             >
-              <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-primary-50 transition-colors">
-                <span className="font-semibold text-primary-900 text-sm pr-4">
-                  {faq.question}
-                </span>
-                <svg
-                  className="w-5 h-5 text-primary-400 group-open:rotate-180 transition-transform flex-shrink-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </summary>
-              <div className="px-5 pb-5 text-sm text-primary-600 leading-relaxed">
-                {faq.answer}
-              </div>
-            </details>
+              <h3 className="font-display font-bold text-primary-900 text-lg mb-3">
+                {faq.question}
+              </h3>
+              <p className="text-sm text-primary-600 leading-relaxed">{faq.answer}</p>
+            </article>
           ))}
         </div>
         <script
