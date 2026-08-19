@@ -15,12 +15,12 @@ import { getSellerFaqs } from '@/lib/sellerCopy';
 import {
   competingListingsH2,
   faqH2,
-  neighborhoodsIndexH1,
   sellerH1,
   SELLER_FEATURE_H3,
   whatBuyersPayH2,
   whoListsH2,
   whySellersH2,
+  otherNeighborhoodsH2,
 } from '@/lib/headings';
 
 export const revalidate = 3600;
@@ -168,7 +168,7 @@ export default async function HomePage() {
 
       <NeighborhoodGrid
         neighborhoods={allNeighborhoods}
-        heading={neighborhoodsIndexH1()}
+        heading={otherNeighborhoodsH2()}
         intro="Each community has its own buyer pool, HOA facts, and comparable set. Pick your neighborhood for a listing plan written for that map — not a generic Las Vegas flyer."
       />
 

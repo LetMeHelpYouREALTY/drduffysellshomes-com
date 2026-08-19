@@ -9,6 +9,7 @@ import PageHero from '@/components/PageHero';
 import SellerProcess from '@/components/SellerProcess';
 import SellerCta from '@/components/SellerCta';
 import FaqSection from '@/components/FaqSection';
+import SchemaMarkup from '@/components/SchemaMarkup';
 import { getSellerFaqs } from '@/lib/sellerCopy';
 import { faqH2, sellProcessH1 } from '@/lib/headings';
 
@@ -37,6 +38,17 @@ export default async function SellPage() {
 
   return (
     <>
+      <SchemaMarkup
+        entities="page"
+        config={config}
+        pageTitle={sellProcessH1(place)}
+        pageDescription={`The listing process ${AGENT.name} uses to sell homes in ${place} and across Las Vegas neighborhoods: CMA, prep, MLS marketing, offers, and closing. Call ${AGENT.phone}.`}
+        path="/sell"
+        breadcrumbs={[
+          { name: 'Sell Your Home', path: '/' },
+          { name: 'How We Sell', path: '/sell' },
+        ]}
+      />
       <Breadcrumbs
         items={[
           { name: 'Sell Your Home', href: '/' },

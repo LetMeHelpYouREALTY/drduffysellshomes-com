@@ -8,6 +8,7 @@ import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
+import SchemaMarkup from '@/components/SchemaMarkup';
 import { listingsH1 } from '@/lib/headings';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -37,6 +38,17 @@ export default async function ListingsPage() {
 
   return (
     <>
+      <SchemaMarkup
+        entities="page"
+        config={config}
+        pageTitle={listingsH1(place)}
+        pageDescription={`See the ${place} homes buyers are touring this week. ${AGENT.name} uses this live MLS set to price and market your listing. Call ${AGENT.phone}.`}
+        path="/listings"
+        breadcrumbs={[
+          { name: 'Sell Your Home', path: '/' },
+          { name: "What's Selling", path: '/listings' },
+        ]}
+      />
       <Breadcrumbs
         items={[
           { name: 'Sell Your Home', href: '/' },

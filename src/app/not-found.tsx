@@ -3,6 +3,11 @@ import { RealScoutCarousel } from '@/components/RealScoutWidget';
 import CalendlyWidgets from '@/components/CalendlyWidgets';
 import { notFoundH1 } from '@/lib/headings';
 
+export const metadata = {
+  title: notFoundH1(),
+  robots: { index: false, follow: true },
+};
+
 export default function NotFound() {
   return (
     <>

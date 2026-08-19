@@ -11,9 +11,9 @@ export default function Footer({ config }: { config: DomainConfig }) {
       <div className="container-wide mx-auto section-padding pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="lg:col-span-1">
-            <h2 className="text-lg font-display font-bold text-white mb-3">
+            <p className="text-lg font-display font-bold text-white mb-3">
               {AGENT.name}, REALTOR® — Las Vegas listing agent
-            </h2>
+            </p>
             <p className="text-sm text-primary-300 mb-1">{AGENT.title}</p>
             <p className="text-sm text-primary-300 mb-4">
               {AGENT.brokerage}
@@ -43,9 +43,9 @@ export default function Footer({ config }: { config: DomainConfig }) {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <p className="text-sm font-bold text-white uppercase tracking-wider mb-4">
               How to sell your Las Vegas home
-            </h3>
+            </p>
             <ul className="space-y-2 text-sm">
               {[
                 { label: `Sell in ${config.neighborhood}`, href: '/' },
@@ -68,9 +68,9 @@ export default function Footer({ config }: { config: DomainConfig }) {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <p className="text-sm font-bold text-white uppercase tracking-wider mb-4">
               Sell by Las Vegas neighborhood
-            </h3>
+            </p>
             <ul className="space-y-2 text-sm">
               {featured.map((n) => (
                 <li key={n.slug}>
@@ -94,9 +94,9 @@ export default function Footer({ config }: { config: DomainConfig }) {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <p className="text-sm font-bold text-white uppercase tracking-wider mb-4">
               Office hours at {AGENT.address.full}
-            </h3>
+            </p>
             <ul className="space-y-1 text-sm text-primary-300 mb-6">
               {AGENT.hoursDisplay.map((h) => (
                 <li key={h.days}>

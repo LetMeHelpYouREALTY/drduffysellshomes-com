@@ -1,7 +1,6 @@
 import { AGENT } from '@/config/agent';
 import type { DomainConfig } from '@/config/domains';
 import { getSiteUrl } from '@/lib/siteUrl';
-import { sellerH1 } from '@/lib/headings';
 import { contentUpdatedIsoDate } from '@/lib/contentFreshness';
 
 type Breadcrumb = {
@@ -9,6 +8,13 @@ type Breadcrumb = {
   path: string;
 };
 
+/**
+ * JSON-LD aligned to Google Search Central as of Aug 2026:
+ * - Person and RealEstateAgent are separate nodes (do not mash Person + LocalBusiness).
+ * - RealEstateAgent is the most specific LocalBusiness subtype.
+ * - Structured data matches visible NAP; no fake review stars or retired rich-result types.
+ * - Speakable / llms.txt / extra AEO markup are not required for AI Overviews or AI Mode.
+ */
 export default async function SchemaMarkup({
   config,
   pageTitle,
@@ -27,9 +33,27 @@ export default async function SchemaMarkup({
   const baseUrl = await getSiteUrl();
   const pageUrl = path === '/' ? baseUrl : `${baseUrl}${path}`;
 
+  const personId = `${baseUrl}/#person`;
   const agentId = `${baseUrl}/#agent`;
   const brokerageId = `${baseUrl}/#brokerage`;
   const websiteId = `${baseUrl}/#website`;
+
+  const postalAddress = {
+    '@type': 'PostalAddress' as const,
+    streetAddress: AGENT.address.street,
+    addressLocality: AGENT.address.city,
+    addressRegion: AGENT.address.state,
+    postalCode: AGENT.address.zip,
+    addressCountry: AGENT.address.country,
+  };
+
+  const geo = {
+    '@type': 'GeoCoordinates' as const,
+    latitude: AGENT.geo.latitude,
+    longitude: AGENT.geo.longitude,
+  };
+
+  const personDescription = `${AGENT.name} is a REALTOR® (Nevada license ${AGENT.license}) with ${AGENT.brokerage}. Listing representation across the Las Vegas Valley. Office: ${AGENT.address.full}.`;
 
   const services = [
     'Residential Home Listing',
@@ -42,40 +66,60 @@ export default async function SchemaMarkup({
     'Probate and Estate Property Sales',
   ];
 
-  const realEstateAgent = {
+  const person = {
     '@context': 'https://schema.org',
-    '@type': ['Person', 'RealEstateAgent', 'LocalBusiness'],
-    '@id': agentId,
+    '@type': 'Person',
+    '@id': personId,
     name: AGENT.name,
     alternateName: 'Dr. Jan Duffy REALTOR®',
-    description:
-      pageDescription ||
-      `Listing agent selling homes in ${config.neighborhood} and across the Las Vegas Valley.`,
+    description: personDescription,
+    url: baseUrl,
+    image: AGENT.headshotUrl,
+    givenName: 'Jan',
+    familyName: 'Duffy',
+    honorificPrefix: 'Dr.',
+    jobTitle: AGENT.title,
+    telephone: AGENT.phone,
+    email: AGENT.email,
+    address: postalAddress,
+    worksFor: { '@id': brokerageId },
+    affiliation: { '@id': agentId },
+    sameAs: [...Object.values(AGENT.social), AGENT.googleReviews],
+    hasCredential: [
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Real estate license',
+        recognizedBy: {
+          '@type': 'GovernmentOrganization',
+          name: 'Nevada Real Estate Division',
+        },
+        identifier: AGENT.license,
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Professional certification',
+        name: 'Certified Luxury Home Marketing Specialist (CLHMS)',
+      },
+    ],
+  };
+
+  const realEstateAgent = {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateAgent',
+    '@id': agentId,
+    name: `${AGENT.name}, REALTOR®`,
+    description: personDescription,
     url: baseUrl,
     telephone: AGENT.phone,
     email: AGENT.email,
     image: [AGENT.headshotUrl, `${baseUrl}/og/opengraph.jpg`],
     logo: AGENT.logoUrl,
-    givenName: 'Jan',
-    familyName: 'Duffy',
-    honorificPrefix: 'Dr.',
-    jobTitle: AGENT.title,
     priceRange: '$$$',
     currenciesAccepted: 'USD',
     paymentAccepted: 'Cash, Check, Wire Transfer',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: AGENT.address.street,
-      addressLocality: AGENT.address.city,
-      addressRegion: AGENT.address.state,
-      postalCode: AGENT.address.zip,
-      addressCountry: AGENT.address.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: AGENT.geo.latitude,
-      longitude: AGENT.geo.longitude,
-    },
+    address: postalAddress,
+    geo,
+    hasMap: AGENT.mapsDirectionsUrl,
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -104,16 +148,15 @@ export default async function SchemaMarkup({
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Home Selling Services',
-      itemListElement: services.map((s, i) => ({
+      itemListElement: services.map((serviceName) => ({
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: s,
+          name: serviceName,
           serviceType: 'Real estate listing and seller representation',
           provider: { '@id': agentId },
           areaServed: config.neighborhood,
         },
-        position: i + 1,
       })),
     },
     knowsAbout: [
@@ -122,18 +165,10 @@ export default async function SchemaMarkup({
       config.neighborhood,
       ...(config.keywords || []),
     ],
-    slogan: sellerH1(config.neighborhood, config.city),
-    worksFor: { '@id': brokerageId },
-    memberOf: {
-      '@type': 'Organization',
-      '@id': brokerageId,
-      name: AGENT.brokerage,
-    },
+    employee: { '@id': personId },
+    founder: { '@id': personId },
+    parentOrganization: { '@id': brokerageId },
     sameAs: [...Object.values(AGENT.social), AGENT.googleReviews],
-    hasCredential: AGENT.credentials.map((c) => ({
-      '@type': 'EducationalOccupationalCredential',
-      credentialCategory: c,
-    })),
   };
 
   const webSite = {
@@ -142,8 +177,7 @@ export default async function SchemaMarkup({
     '@id': websiteId,
     name: config.name,
     url: baseUrl,
-    description:
-      `Listing agent selling homes in ${config.neighborhood} and across the Las Vegas Valley.`,
+    description: `Listing agent selling homes in ${config.neighborhood} and across the Las Vegas Valley.`,
     publisher: { '@id': agentId },
     inLanguage: 'en-US',
   };
@@ -151,15 +185,13 @@ export default async function SchemaMarkup({
   const webPage = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: pageTitle || sellerH1(config.neighborhood, config.city),
-    headline: pageTitle || sellerH1(config.neighborhood, config.city),
+    '@id': `${pageUrl}#webpage`,
+    name: pageTitle,
+    headline: pageTitle,
     description: pageDescription || config.description,
     url: pageUrl,
+    inLanguage: 'en-US',
     isPartOf: { '@id': websiteId },
-    speakable: {
-      '@type': 'SpeakableSpecification',
-      cssSelector: ['h1', 'h2', 'h3'],
-    },
     mainEntity: { '@id': agentId },
     about: {
       '@type': 'Place',
@@ -171,7 +203,8 @@ export default async function SchemaMarkup({
         postalCode: config.zip,
       },
     },
-    author: { '@id': agentId },
+    author: { '@id': personId },
+    publisher: { '@id': agentId },
     dateModified: contentUpdatedIsoDate(),
     breadcrumb: {
       '@type': 'BreadcrumbList',
@@ -191,15 +224,8 @@ export default async function SchemaMarkup({
     name: AGENT.brokerage,
     url: 'https://www.bhhsnv.com/',
     logo: AGENT.logoUrl,
-    member: { '@id': agentId },
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: AGENT.address.street,
-      addressLocality: AGENT.address.city,
-      addressRegion: AGENT.address.state,
-      postalCode: AGENT.address.zip,
-      addressCountry: AGENT.address.country,
-    },
+    member: { '@id': personId },
+    address: postalAddress,
   };
 
   const includeBusiness = entities === 'business' || entities === 'all';
@@ -209,6 +235,10 @@ export default async function SchemaMarkup({
     <>
       {includeBusiness && (
         <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+          />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateAgent) }}
@@ -223,12 +253,12 @@ export default async function SchemaMarkup({
           />
         </>
       )}
-      {includePage && (
+      {includePage && pageTitle ? (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }}
         />
-      )}
+      ) : null}
     </>
   );
 }

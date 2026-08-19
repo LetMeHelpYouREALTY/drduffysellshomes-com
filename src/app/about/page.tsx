@@ -7,6 +7,7 @@ import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
+import SchemaMarkup from '@/components/SchemaMarkup';
 import { aboutH1, officeH2 } from '@/lib/headings';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,6 +36,17 @@ export default async function AboutPage() {
 
   return (
     <>
+      <SchemaMarkup
+        entities="page"
+        config={config}
+        pageTitle={aboutH1(place)}
+        pageDescription={`${AGENT.shortBio} ${AGENT.name} sells homes in ${place} and across Las Vegas neighborhoods. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}.`}
+        path="/about"
+        breadcrumbs={[
+          { name: 'Sell Your Home', path: '/' },
+          { name: 'About', path: '/about' },
+        ]}
+      />
       <Breadcrumbs
         items={[
           { name: 'Sell Your Home', href: '/' },

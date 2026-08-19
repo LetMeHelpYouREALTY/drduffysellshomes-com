@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { AGENT } from '@/config/agent';
+import { getDomainConfig } from '@/lib/getDomainConfig';
 import { getNeighborhoodsByRegion } from '@/config/neighborhoods';
 import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
 import SellerCta from '@/components/SellerCta';
+import SchemaMarkup from '@/components/SchemaMarkup';
 import { neighborhoodCardH3, neighborhoodsIndexH1, regionSellH2 } from '@/lib/headings';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -27,11 +29,23 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const revalidate = 3600;
 
-export default function NeighborhoodsIndexPage() {
+export default async function NeighborhoodsIndexPage() {
+  const config = await getDomainConfig();
   const groups = getNeighborhoodsByRegion();
 
   return (
     <>
+      <SchemaMarkup
+        entities="page"
+        config={config}
+        pageTitle={neighborhoodsIndexH1()}
+        pageDescription={`Neighborhood-by-neighborhood listing plans for Summerlin, Skye Canyon, Centennial Hills, Henderson, Southern Highlands, and more. ${AGENT.name} sells homes across the Las Vegas Valley. Call ${AGENT.phone}.`}
+        path="/neighborhoods"
+        breadcrumbs={[
+          { name: 'Sell Your Home', path: '/' },
+          { name: 'Las Vegas Neighborhoods', path: '/neighborhoods' },
+        ]}
+      />
       <Breadcrumbs
         items={[
           { name: 'Sell Your Home', href: '/' },

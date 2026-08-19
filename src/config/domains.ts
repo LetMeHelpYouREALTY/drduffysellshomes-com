@@ -106,7 +106,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
   'eaglehillshomes.com': {
     name: 'Eagle Hills Homes',
     neighborhood: 'Eagle Hills',
-    description: 'Homes for sale in Eagle Hills, Las Vegas. Established community with mountain views.',
+    description: 'Homes for sale in Eagle Hills, Las Vegas. Mountain views, lot types, and commute to the Strip and Summerlin.',
     keywords: ['Eagle Hills', 'Eagle Hills homes', 'Las Vegas homes'],
     focus: 'family',
     heroTitle: 'Eagle Hills Homes for Sale',
@@ -149,7 +149,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     name: 'Lone Mountain Homes',
     neighborhood: 'Lone Mountain',
     zip: '89129',
-    description: 'Homes for sale near Lone Mountain in Las Vegas. Mountain views, hiking trails, and family neighborhoods.',
+    description: 'Homes for sale near Lone Mountain in Las Vegas. Mountain views, hiking trails, and lot-level listing comps.',
     keywords: ['Lone Mountain', 'Lone Mountain homes', 'Las Vegas mountain homes'],
     focus: 'family',
     heroTitle: 'Lone Mountain Homes for Sale',
@@ -288,7 +288,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     keywords: ['West Summerlin', 'Summerlin homes', 'Red Rock homes'],
     focus: 'general',
     heroTitle: 'West Summerlin Homes for Sale',
-    heroSubtitle: 'Premium homes near Red Rock Canyon — luxury estates to family neighborhoods.',
+    heroSubtitle: 'Premium homes near Red Rock Canyon — luxury estates to production floor plans.',
   },
 
   // ── Brand & Agent Domains ────────────────────────────────────────
@@ -389,7 +389,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     neighborhood: 'Summerlin',
     city: 'Summerlin',
     zip: '89135',
-    description: 'Search all homes for sale in Summerlin, Las Vegas. From luxury estates to family neighborhoods.',
+    description: 'Search all homes for sale in Summerlin, Las Vegas. From luxury estates to production floor plans.',
     keywords: ['Summerlin homes', 'homes for sale Summerlin', 'Summerlin real estate'],
     focus: 'general',
     heroTitle: 'Summerlin Homes for Sale',
@@ -504,10 +504,10 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     name: 'Las Vegas Family Homes',
     neighborhood: 'Las Vegas Valley',
     description: 'Sell a home in Las Vegas with square footage, lot, and commute as the listing story — not a generic valley flyer.',
-    keywords: ['family homes Las Vegas', 'best schools Las Vegas', 'family neighborhoods'],
+    keywords: ['sell home Las Vegas', 'Las Vegas listing agent', 'Las Vegas square footage lots'],
     focus: 'family',
     heroTitle: 'Las Vegas Family Homes',
-    heroSubtitle: 'The best neighborhoods for families — top schools, parks, and safe communities.',
+    heroSubtitle: 'Square footage, lot, parks, and commute — listed to the buyers already filtering that map.',
   },
 
   'lasvegasmultigenhomes.com': {

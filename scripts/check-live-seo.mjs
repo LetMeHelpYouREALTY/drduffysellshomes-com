@@ -55,18 +55,37 @@ if (existsSync(join(root, 'public/sitemap.xml'))) {
 const schema = read('src/components/SchemaMarkup.tsx');
 for (const token of [
   "'Person'",
-  'SpeakableSpecification',
+  "'RealEstateAgent'",
   'contentUpdatedIsoDate',
-  'RealEstateAgent',
-  'LocalBusiness',
+  'hasMap',
+  '#person',
+  '#agent',
 ]) {
   if (!schema.includes(token)) {
     throw new Error(`SchemaMarkup is missing ${token}`);
   }
 }
 
+if (schema.includes('SpeakableSpecification')) {
+  throw new Error('Speakable is news-publisher markup, not a Google AI-Overviews requirement.');
+}
+
 if (schema.includes('aggregateRating') || schema.includes('AggregateRating')) {
   throw new Error('Do not emit AggregateRating without a verified live review count.');
+}
+
+if (schema.includes("'Person', 'RealEstateAgent'") || schema.includes("'Person', 'RealEstateAgent', 'LocalBusiness'")) {
+  throw new Error('Keep Person and RealEstateAgent as separate nodes.');
+}
+
+const faqSrc = read('src/components/FaqSection.tsx');
+if (faqSrc.includes('FAQPage')) {
+  throw new Error('FAQ rich results ended 7 May 2026. Keep visible Q&A; do not emit FAQPage JSON-LD.');
+}
+
+const processSrc = read('src/components/SellerProcess.tsx');
+if (processSrc.includes("'HowTo'") || processSrc.includes('"HowTo"')) {
+  throw new Error('HowTo rich results are deprecated. Keep visible steps; do not emit HowTo JSON-LD.');
 }
 
 const headings = read('src/lib/headings.ts');

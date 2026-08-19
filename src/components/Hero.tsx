@@ -80,9 +80,9 @@ export default function Hero({
 
           <div className="hidden lg:block">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-              <h2 className="text-xl font-display font-bold text-white mb-4">
+              <p className="text-xl font-display font-bold text-white mb-4">
                 Which {place} homes are buyers shopping this week?
-              </h2>
+              </p>
               <p className="text-primary-300 text-sm mb-6">
                 Live MLS inventory is your competition. We price and market your {place} home
                 against these listings — not a valley-wide average.

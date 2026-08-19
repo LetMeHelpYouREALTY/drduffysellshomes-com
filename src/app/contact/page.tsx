@@ -6,6 +6,7 @@ import { getSiteUrl } from '@/lib/siteUrl';
 import { buildPageMetadata } from '@/lib/pageMetadata';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageHero from '@/components/PageHero';
+import SchemaMarkup from '@/components/SchemaMarkup';
 import { contactH1, officeH2 } from '@/lib/headings';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -34,6 +35,17 @@ export default async function ContactPage() {
 
   return (
     <>
+      <SchemaMarkup
+        entities="page"
+        config={config}
+        pageTitle={contactH1(place)}
+        pageDescription={`Book a ${place} listing consultation or market strategy call with ${AGENT.name}. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`}
+        path="/contact"
+        breadcrumbs={[
+          { name: 'Sell Your Home', path: '/' },
+          { name: 'Contact', path: '/contact' },
+        ]}
+      />
       <Breadcrumbs
         items={[
           { name: 'Sell Your Home', href: '/' },

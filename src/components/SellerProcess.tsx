@@ -2,23 +2,6 @@ import { AGENT } from '@/config/agent';
 import { PROCESS_STEP_H3, howWeSellH2 } from '@/lib/headings';
 
 export default function SellerProcess({ neighborhood }: { neighborhood: string }) {
-  const howTo = {
-    '@context': 'https://schema.org',
-    '@type': 'HowTo',
-    name: howWeSellH2(neighborhood),
-    description: `The listing process ${AGENT.name} uses to sell a home in ${neighborhood}, Las Vegas, NV.`,
-    supply: [
-      { '@type': 'HowToSupply', name: 'Current comparative market analysis' },
-      { '@type': 'HowToSupply', name: 'MLS listing and neighborhood marketing' },
-    ],
-    step: PROCESS_STEP_H3.map((step, index) => ({
-      '@type': 'HowToStep',
-      position: index + 1,
-      name: step.name,
-      text: step.desc,
-    })),
-  };
-
   return (
     <section className="section-padding bg-primary-50">
       <div className="container-wide mx-auto">
@@ -50,10 +33,6 @@ export default function SellerProcess({ neighborhood }: { neighborhood: string }
             {AGENT.phone}
           </a>
         </p>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(howTo) }}
-        />
       </div>
     </section>
   );

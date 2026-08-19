@@ -108,11 +108,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const config = await getDomainConfig();
-  const neighborhood = findNeighborhoodForName(config.neighborhood);
-  const hero = getSellerHero(config, neighborhood);
-  const description =
-    neighborhood?.intro ??
-    `Sell your home in ${config.neighborhood} with ${AGENT.name}. Neighborhood comps, listing marketing, and seller representation across the Las Vegas Valley. ${AGENT.address.full}. Call ${AGENT.phone}.`;
 
   return (
     <html lang="en">
@@ -124,11 +119,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://calendly.com" />
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM content map" />
         <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM full briefing" />
-        <SchemaMarkup
-          config={config}
-          pageTitle={hero.title}
-          pageDescription={description}
-        />
+        <SchemaMarkup config={config} />
       </head>
       <body className="min-h-screen flex flex-col">
         {/* Third-party assets wait until idle so they cannot block FCP/LCP. */}

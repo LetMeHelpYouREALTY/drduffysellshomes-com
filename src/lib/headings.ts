@@ -75,6 +75,10 @@ export function regionSellH2(regionLabel: string): string {
   return `How do I sell a home in ${regionLabel}?`;
 }
 
+export function otherNeighborhoodsH2(): string {
+  return 'How do I sell a home in other Las Vegas Valley neighborhoods?';
+}
+
 export function neighborhoodCardH3(name: string, city: string): string {
   return `Sell your ${name} home in ${city}, NV`;
 }
