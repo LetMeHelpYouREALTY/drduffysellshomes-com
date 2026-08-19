@@ -131,7 +131,7 @@ export default async function ContactPage() {
 
               <div className="flex flex-col gap-3">
                 <a
-                  href="https://maps.google.com/?q=9406+Del+Webb+Blvd+Las+Vegas+NV+89134"
+                  href={AGENT.mapsDirectionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary text-center"

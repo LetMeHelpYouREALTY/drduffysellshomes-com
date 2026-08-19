@@ -38,7 +38,7 @@ export const DEFAULT_CONFIG: DomainConfig = {
   neighborhood: 'Las Vegas Valley',
   city: 'Las Vegas',
   state: 'NV',
-  zip: '89134',
+  zip: '89149',
   description:
     'Sell your Las Vegas home with Dr. Jan Duffy, REALTOR® at Berkshire Hathaway HomeServices Nevada Properties. Neighborhood listing plans for Summerlin, Skye Canyon, Henderson, Centennial Hills, and every major valley community.',
   keywords: [

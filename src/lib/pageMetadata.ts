@@ -60,8 +60,8 @@ export function buildPageMetadata({
     other: {
       'geo.region': 'US-NV',
       'geo.placename': AGENT.address.city,
-      'geo.position': '36.22;-115.33',
-      ICBM: '36.22, -115.33',
+      'geo.position': `${AGENT.geo.latitude};${AGENT.geo.longitude}`,
+      ICBM: `${AGENT.geo.latitude}, ${AGENT.geo.longitude}`,
       'og:image:alt': OG_IMAGE_ALT,
       'twitter:image:alt': OG_IMAGE_ALT,
     },

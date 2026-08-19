@@ -73,8 +73,8 @@ export default async function SchemaMarkup({
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 36.22,
-      longitude: -115.33,
+      latitude: AGENT.geo.latitude,
+      longitude: AGENT.geo.longitude,
     },
     openingHoursSpecification: [
       {

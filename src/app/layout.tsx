@@ -92,9 +92,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     other: {
       'geo.region': 'US-NV',
-      'geo.placename': 'Las Vegas',
-      'geo.position': '36.22;-115.33',
-      ICBM: '36.22, -115.33',
+      'geo.placename': AGENT.address.city,
+      'geo.position': `${AGENT.geo.latitude};${AGENT.geo.longitude}`,
+      ICBM: `${AGENT.geo.latitude}, ${AGENT.geo.longitude}`,
       'og:image:alt': ogImage.alt,
       'twitter:image:alt': twitterImage.alt,
       'og:updated_time': contentUpdatedAt().toISOString(),

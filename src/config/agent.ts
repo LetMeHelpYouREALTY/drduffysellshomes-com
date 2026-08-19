@@ -15,12 +15,17 @@ export const AGENT = {
   phoneTel: '+17029031952',
   email: 'DrJanDuffy@gmail.com',
   address: {
-    street: '9406 Del Webb Blvd',
+    street: '5550 Painted Mirage Rd Ste 140A',
     city: 'Las Vegas',
     state: 'NV',
-    zip: '89134',
+    zip: '89149',
     country: 'US',
-    full: '9406 Del Webb Blvd, Las Vegas, NV 89134',
+    full: '5550 Painted Mirage Rd Ste 140A, Las Vegas, NV 89149',
+  },
+  // OpenStreetMap Nominatim, building 5550 Painted Mirage Road (way 582155954), 2026-08-19
+  geo: {
+    latitude: 36.261827,
+    longitude: -115.254987,
   },
 
   // Hours — match GBP
@@ -35,8 +40,10 @@ export const AGENT = {
   calendly: 'https://calendly.com/drjanduffy/listing-consultation',
   realscoutAgentId: 'drjanduffy',
   googleReviews: 'https://g.page/r/CYmVqofF2JYBEAI/review',
+  mapsDirectionsUrl:
+    'https://maps.google.com/?q=5550+Painted+Mirage+Rd+Ste+140A,+Las+Vegas,+NV+89149',
   googleMapsEmbed:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3219.0!2d-115.33!3d36.22!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDEzJzEyLjAiTiAxMTXCsDE5JzQ4LjAiVw!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
+    'https://www.google.com/maps?q=5550+Painted+Mirage+Rd+Ste+140A,+Las+Vegas,+NV+89149&output=embed',
 
   // Social
   social: {
