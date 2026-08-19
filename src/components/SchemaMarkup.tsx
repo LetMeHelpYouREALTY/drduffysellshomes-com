@@ -2,6 +2,7 @@ import { AGENT } from '@/config/agent';
 import type { DomainConfig } from '@/config/domains';
 import { getSiteUrl } from '@/lib/siteUrl';
 import { sellerH1 } from '@/lib/headings';
+import { contentUpdatedIsoDate } from '@/lib/contentFreshness';
 
 type Breadcrumb = {
   name: string;
@@ -43,7 +44,7 @@ export default async function SchemaMarkup({
 
   const realEstateAgent = {
     '@context': 'https://schema.org',
-    '@type': ['RealEstateAgent', 'LocalBusiness'],
+    '@type': ['Person', 'RealEstateAgent', 'LocalBusiness'],
     '@id': agentId,
     name: AGENT.name,
     alternateName: 'Dr. Jan Duffy REALTOR®',
@@ -55,6 +56,10 @@ export default async function SchemaMarkup({
     email: AGENT.email,
     image: [AGENT.headshotUrl, `${baseUrl}/og/opengraph.jpg`],
     logo: AGENT.logoUrl,
+    givenName: 'Jan',
+    familyName: 'Duffy',
+    honorificPrefix: 'Dr.',
+    jobTitle: AGENT.title,
     priceRange: '$$$',
     currenciesAccepted: 'USD',
     paymentAccepted: 'Cash, Check, Wire Transfer',
@@ -118,12 +123,13 @@ export default async function SchemaMarkup({
       ...(config.keywords || []),
     ],
     slogan: sellerH1(config.neighborhood, config.city),
+    worksFor: { '@id': brokerageId },
     memberOf: {
       '@type': 'Organization',
       '@id': brokerageId,
       name: AGENT.brokerage,
     },
-    sameAs: Object.values(AGENT.social),
+    sameAs: [...Object.values(AGENT.social), AGENT.googleReviews],
     hasCredential: AGENT.credentials.map((c) => ({
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: c,
@@ -166,7 +172,7 @@ export default async function SchemaMarkup({
       },
     },
     author: { '@id': agentId },
-    dateModified: '2026-08-19',
+    dateModified: contentUpdatedIsoDate(),
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: breadcrumbs.map((crumb, index) => ({

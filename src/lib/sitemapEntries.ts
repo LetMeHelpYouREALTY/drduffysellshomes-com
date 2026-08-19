@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { getAllNeighborhoods } from '@/config/neighborhoods';
 import { PRODUCTION_SITE_URL } from '@/lib/siteHost';
+import { contentUpdatedAt } from '@/lib/contentFreshness';
 
 export { PRODUCTION_SITE_URL };
-export const SITEMAP_LASTMOD = '2026-08-19';
 
 type Freq = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
 
@@ -33,7 +33,7 @@ function loc(baseUrl: string, path: string): string {
  * https://www.drduffysellshomes.com only.
  */
 export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
-  const lastModified = new Date(`${SITEMAP_LASTMOD}T00:00:00.000Z`);
+  const lastModified = contentUpdatedAt();
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map((page) => ({
     url: loc(baseUrl, page.path),
@@ -60,7 +60,7 @@ export function sitemapToXml(entries: MetadataRoute.Sitemap): string {
       const lastmod =
         entry.lastModified instanceof Date
           ? entry.lastModified.toISOString().slice(0, 10)
-          : SITEMAP_LASTMOD;
+          : contentUpdatedAt().toISOString().slice(0, 10);
       const changefreq = entry.changeFrequency
         ? `\n    <changefreq>${entry.changeFrequency}</changefreq>`
         : '';

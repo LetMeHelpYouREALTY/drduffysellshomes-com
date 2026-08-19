@@ -3,6 +3,7 @@ import Script from 'next/script';
 import './globals.css';
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { getPublicSiteUrl, socialShareImages } from '@/lib/siteUrl';
+import { contentUpdatedAt } from '@/lib/contentFreshness';
 import { AGENT } from '@/config/agent';
 import { findNeighborhoodForName } from '@/config/neighborhoods';
 import Header from '@/components/Header';
@@ -85,6 +86,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical: siteUrl,
+      types: {
+        'text/plain': `${siteUrl}/llms.txt`,
+      },
     },
     other: {
       'geo.region': 'US-NV',
@@ -93,6 +97,7 @@ export async function generateMetadata(): Promise<Metadata> {
       ICBM: '36.22, -115.33',
       'og:image:alt': ogImage.alt,
       'twitter:image:alt': twitterImage.alt,
+      'og:updated_time': contentUpdatedAt().toISOString(),
     },
   };
 }
@@ -118,6 +123,8 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://em.realscout.com" />
         <link rel="dns-prefetch" href="https://www.realscout.com" />
         <link rel="dns-prefetch" href="https://calendly.com" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM content map" />
+        <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM full briefing" />
         <link rel="stylesheet" href={CALENDLY_WIDGET_CSS} />
         <SchemaMarkup
           config={config}

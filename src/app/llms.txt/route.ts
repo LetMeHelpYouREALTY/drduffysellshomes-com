@@ -42,6 +42,8 @@ ${neighborhoodLines}
 - [What's selling (live MLS)](${baseUrl}/listings)
 - [Contact / home valuation](${baseUrl}/contact)
 - [About](${baseUrl}/about)
+- [LLM briefing](${baseUrl}/llms.txt)
+- [LLM full briefing](${baseUrl}/llms-full.txt)
 - [Sitemap](${baseUrl}/sitemap.xml)
 
 ## Contact

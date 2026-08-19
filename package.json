@@ -10,7 +10,8 @@
     "lint": "next lint",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "check:www": "node scripts/check-www-canonical.mjs",
-    "check:og": "node scripts/check-og-images.mjs"
+    "check:og": "node scripts/check-og-images.mjs",
+    "check:live": "node scripts/check-www-canonical.mjs && node scripts/check-og-images.mjs && node scripts/check-live-seo.mjs"
   },
   "dependencies": {
     "next": "^15.1.0",
