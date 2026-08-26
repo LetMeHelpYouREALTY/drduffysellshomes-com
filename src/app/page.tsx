@@ -187,7 +187,7 @@ export default async function HomePage() {
                 {AGENT.credentials.slice(0, 4).map((cred) => (
                   <li key={cred} className="flex items-start gap-3 text-primary-700">
                     <svg
-                      className="w-5 h-5 text-bhhs-gold mt-0.5 flex-shrink-0"
+                      className="w-5 h-5 text-bhhs-gold mt-0.5 shrink-0"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -206,7 +206,7 @@ export default async function HomePage() {
               </a>
             </div>
             <div className="relative">
-              <div className="aspect-[4/5] rounded-2xl bg-gradient-to-br from-bhhs-cream to-primary-100 overflow-hidden">
+              <div className="aspect-4/5 rounded-2xl bg-linear-to-br from-bhhs-cream to-primary-100 overflow-hidden">
                 {AGENT.headshotUrl ? (
                   <img
                     src={AGENT.headshotUrl}

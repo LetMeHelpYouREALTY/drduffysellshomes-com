@@ -165,7 +165,7 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      <section id="valuation" className="section-padding bg-gradient-to-r from-bhhs-maroon to-primary-900">
+      <section id="valuation" className="section-padding bg-linear-to-r from-bhhs-maroon to-primary-900">
         <div className="container-narrow mx-auto text-center">
           <h2 className="text-3xl font-display font-bold text-white mb-4">
             What is my {place} home worth this week?

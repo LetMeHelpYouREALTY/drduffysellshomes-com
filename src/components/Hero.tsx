@@ -17,7 +17,7 @@ export default function Hero({
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-bhhs-maroon">
+      <section className="relative overflow-hidden bg-linear-to-br from-primary-900 via-primary-800 to-bhhs-maroon">
       <div className="absolute inset-0 opacity-10">
         <div
           className="absolute inset-0"
@@ -50,7 +50,7 @@ export default function Hero({
               </a>
               <a
                 href={`tel:${AGENT.phoneTel}`}
-                className="btn-secondary !text-white !border-white/30 hover:!bg-white/10 text-base px-8 py-4"
+                className="btn-secondary text-white! border-white/30! hover:bg-white/10! text-base px-8 py-4"
               >
                 Call {AGENT.phone}
               </a>
@@ -79,7 +79,7 @@ export default function Hero({
           </div>
 
           <div className="hidden lg:block">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+            <div className="bg-white/10 backdrop-blur-xs rounded-2xl p-8 border border-white/20">
               <p className="text-xl font-display font-bold text-white mb-4">
                 Which {place} homes are buyers shopping this week?
               </p>

@@ -108,7 +108,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
             </a>
           <a
             href={`tel:${AGENT.phoneTel}`}
-            className="btn-secondary !text-white !border-white/30 hover:!bg-white/10"
+            className="btn-secondary text-white! border-white/30! hover:bg-white/10!"
           >
             Call {AGENT.phone}
           </a>

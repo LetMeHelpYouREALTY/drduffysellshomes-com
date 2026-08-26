@@ -18,7 +18,7 @@ export default function Header({ config }: { config: DomainConfig }) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-primary-100 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xs border-b border-primary-100 shadow-xs">
       <div className="container-wide mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <a href="/" className="flex items-center gap-3 group">
