@@ -1,12 +1,15 @@
 /**
  * RealScout widgets.
- * Load the web-components script once in the root layout (`<Script>`).
+ * Load the web-components script once via DeferRealScoutScript (near-viewport).
  * Render custom elements with dangerouslySetInnerHTML — do not hydrate with React state.
  */
 
-export const REALSCOUT_AGENT_ENCODED_ID = 'QWdlbnQtMjI1MDUw';
-export const REALSCOUT_SCRIPT_SRC =
-  'https://em.realscout.com/widgets/realscout-web-components.umd.js';
+import {
+  REALSCOUT_AGENT_ENCODED_ID,
+  REALSCOUT_SCRIPT_SRC,
+} from '@/config/realscout';
+
+export { REALSCOUT_AGENT_ENCODED_ID, REALSCOUT_SCRIPT_SRC };
 
 export function RealScoutSearch() {
   return (

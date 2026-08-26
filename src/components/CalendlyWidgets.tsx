@@ -1,10 +1,11 @@
 import { AGENT } from '@/config/agent';
 import { CALENDLY_WIDGETS } from '@/config/calendly';
 import { scheduleH2 } from '@/lib/headings';
+import CalendlyEmbed from '@/components/CalendlyEmbed';
 
 /**
  * All three Calendly event widgets — listing, market strategy, buyer.
- * Iframes so Next.js server components do not need React state.
+ * Calendars are click-to-load so mobile PageSpeed is not paying for three iframes.
  */
 export default function CalendlyWidgets() {
   return (
@@ -38,14 +39,7 @@ export default function CalendlyWidgets() {
               <p className="text-sm text-primary-600 mb-4 leading-relaxed">
                 {widget.description}
               </p>
-              <iframe
-                src={widget.url}
-                title={`${widget.title} with ${AGENT.name}`}
-                className="w-full min-h-[700px] rounded-xl border border-primary-100"
-                width={400}
-                height={700}
-                loading="lazy"
-              />
+              <CalendlyEmbed url={widget.url} title={widget.title} />
             </div>
           ))}
         </div>

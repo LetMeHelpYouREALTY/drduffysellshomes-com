@@ -66,6 +66,6 @@
 
   .calendly-embed-grid {
     content-visibility: auto;
-    contain-intrinsic-size: auto 2200px;
+    contain-intrinsic-size: auto 720px;
   }
 }

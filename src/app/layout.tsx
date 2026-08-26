@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import './globals.css';
 import { getDomainConfig } from '@/lib/getDomainConfig';
 import { getPublicSiteUrl, socialShareImages } from '@/lib/siteUrl';
@@ -11,9 +10,8 @@ import Footer from '@/components/Footer';
 import NapBar from '@/components/NapBar';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { getSellerHero } from '@/lib/sellerCopy';
-import { REALSCOUT_SCRIPT_SRC } from '@/components/RealScoutWidget';
 import CalendlyBadge from '@/components/CalendlyBadge';
-import { CALENDLY_SCRIPT_SRC, CALENDLY_WIDGET_CSS } from '@/config/calendly';
+import DeferRealScoutScript from '@/components/DeferRealScoutScript';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -122,21 +120,7 @@ export default async function RootLayout({
         <SchemaMarkup config={config} />
       </head>
       <body className="min-h-screen flex flex-col">
-        {/* Third-party assets wait until idle so they cannot block FCP/LCP. */}
-        <Script
-          id="realscout-web-components"
-          src={REALSCOUT_SCRIPT_SRC}
-          type="module"
-          strategy="lazyOnload"
-        />
-        <Script id="calendly-widget-css" strategy="lazyOnload">
-          {`(function(){if(document.getElementById('calendly-widget-stylesheet'))return;var l=document.createElement('link');l.id='calendly-widget-stylesheet';l.rel='stylesheet';l.href=${JSON.stringify(CALENDLY_WIDGET_CSS)};document.head.appendChild(l);})();`}
-        </Script>
-        <Script
-          id="calendly-widget"
-          src={CALENDLY_SCRIPT_SRC}
-          strategy="lazyOnload"
-        />
+        <DeferRealScoutScript />
         <CalendlyBadge />
         <NapBar />
         <Header config={config} />
