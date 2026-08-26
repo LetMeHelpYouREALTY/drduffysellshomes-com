@@ -10,7 +10,7 @@ export default function SellerCta({
   body?: string;
 }) {
   return (
-    <section className="section-padding bg-gradient-to-r from-bhhs-maroon to-primary-900">
+    <section className="section-padding bg-linear-to-r from-bhhs-maroon to-primary-900">
       <div className="container-narrow mx-auto text-center">
         <h2 className="text-3xl lg:text-4xl font-display font-bold text-white mb-4">
           {heading || `Ready to sell your ${neighborhood} home with ${AGENT.name}?`}
@@ -25,7 +25,7 @@ export default function SellerCta({
           </a>
           <a
             href={`tel:${AGENT.phoneTel}`}
-            className="btn-secondary !text-white !border-white/30 hover:!bg-white/10 text-base px-8 py-4"
+            className="btn-secondary text-white! border-white/30! hover:bg-white/10! text-base px-8 py-4"
           >
             Call {AGENT.phone}
           </a>

@@ -27,7 +27,7 @@ export default function PageHero({
 
   return (
     <>
-      <section className="bg-gradient-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
+      <section className="bg-linear-to-r from-primary-900 to-bhhs-maroon section-padding py-16">
         <div className={`container-wide mx-auto ${centered ? 'text-center' : ''}`}>
           {eyebrow ? (
             <p className="text-bhhs-gold text-sm font-semibold uppercase tracking-wider mb-3">

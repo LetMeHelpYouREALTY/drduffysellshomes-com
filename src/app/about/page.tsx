@@ -65,7 +65,7 @@ export default async function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             <div className="lg:col-span-2">
               <div className="sticky top-24">
-                <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-bhhs-cream to-primary-100 overflow-hidden mb-6">
+                <div className="aspect-3/4 rounded-2xl bg-linear-to-br from-bhhs-cream to-primary-100 overflow-hidden mb-6">
                   {AGENT.headshotUrl ? (
                     <img
                       src={AGENT.headshotUrl}
@@ -144,7 +144,7 @@ export default async function AboutPage() {
                       className="flex items-start gap-3 p-3 rounded-lg bg-bhhs-cream"
                     >
                       <svg
-                        className="w-5 h-5 text-bhhs-gold mt-0.5 flex-shrink-0"
+                        className="w-5 h-5 text-bhhs-gold mt-0.5 shrink-0"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >

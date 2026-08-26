@@ -1,6 +1,103 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary-50: #f0f4f8;
+  --color-primary-100: #d9e2ec;
+  --color-primary-200: #bcccdc;
+  --color-primary-300: #9fb3c8;
+  --color-primary-400: #829ab1;
+  --color-primary-500: #627d98;
+  --color-primary-600: #486581;
+  --color-primary-700: #334e68;
+  --color-primary-800: #243b53;
+  --color-primary-900: #102a43;
+
+  --color-accent-50: #fff8f0;
+  --color-accent-100: #feebd0;
+  --color-accent-200: #fcd9a8;
+  --color-accent-300: #f9c46c;
+  --color-accent-400: #f5a623;
+  --color-accent-500: #e8930c;
+  --color-accent-600: #c27706;
+  --color-accent-700: #9c5f08;
+  --color-accent-800: #7c4b0e;
+  --color-accent-900: #663e0f;
+
+  --color-bhhs-maroon: #6a1b4d;
+  --color-bhhs-gold: #c9a84c;
+  --color-bhhs-cream: #faf5eb;
+
+  --font-display: Georgia, Cambria, serif;
+  --font-body: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-bhhs-maroon rounded-lg hover:bg-bhhs-maroon/90 transition-all duration-200 shadow-md hover:shadow-lg;
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-bhhs-maroon bg-white border-2 border-bhhs-maroon rounded-lg hover:bg-bhhs-cream transition-all duration-200;
+}
+
+@utility btn-gold {
+  @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-primary-900 bg-bhhs-gold rounded-lg hover:bg-accent-500 transition-all duration-200 shadow-md;
+}
+
+@utility section-padding {
+  @apply px-4 py-16 sm:px-6 lg:px-8 lg:py-24;
+}
+
+@utility container-narrow {
+  @apply max-w-4xl mx-auto;
+}
+
+@utility container-wide {
+  @apply max-w-7xl mx-auto;
+}
+
+@utility realscout-placeholder {
+  /* RealScout widget placeholder — the Worker injects the real widget here */
+  @apply min-h-[400px] bg-linear-to-b from-primary-50 to-white rounded-xl border border-primary-100 flex items-center justify-center;
+}
+
+@utility realscout-carousel {
+  @apply w-full min-h-[280px];
+
+  & realscout-office-listings {
+    --rs-listing-divider-color: #6a1b4d;
+    display: block;
+    width: 100%;
+  }
+}
+
+@utility below-fold-embed {
+  /* Skip paint for below-fold third-party embeds so FCP/LCP stay on the hero. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
+}
+
+@utility calendly-embed-grid {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 2200px;
+}
 
 @layer base {
   html {
@@ -15,57 +112,5 @@
 
   h1, h2, h3, h4 {
     @apply font-display;
-  }
-}
-
-@layer components {
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-bhhs-maroon rounded-lg hover:bg-opacity-90 transition-all duration-200 shadow-md hover:shadow-lg;
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-bhhs-maroon bg-white border-2 border-bhhs-maroon rounded-lg hover:bg-bhhs-cream transition-all duration-200;
-  }
-
-  .btn-gold {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-primary-900 bg-bhhs-gold rounded-lg hover:bg-accent-500 transition-all duration-200 shadow-md;
-  }
-
-  .section-padding {
-    @apply px-4 py-16 sm:px-6 lg:px-8 lg:py-24;
-  }
-
-  .container-narrow {
-    @apply max-w-4xl mx-auto;
-  }
-
-  .container-wide {
-    @apply max-w-7xl mx-auto;
-  }
-
-  /* RealScout widget placeholder — the Worker injects the real widget here */
-  .realscout-placeholder {
-    @apply min-h-[400px] bg-gradient-to-b from-primary-50 to-white rounded-xl border border-primary-100 flex items-center justify-center;
-  }
-
-  .realscout-carousel {
-    @apply w-full min-h-[280px];
-  }
-
-  .realscout-carousel realscout-office-listings {
-    --rs-listing-divider-color: #6a1b4d;
-    display: block;
-    width: 100%;
-  }
-
-  /* Skip paint for below-fold third-party embeds so FCP/LCP stay on the hero. */
-  .below-fold-embed {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 280px;
-  }
-
-  .calendly-embed-grid {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 2200px;
   }
 }
