@@ -14,6 +14,7 @@
     "check:live": "node scripts/check-www-canonical.mjs && node scripts/check-og-images.mjs && node scripts/check-live-seo.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "next": "^15.1.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
