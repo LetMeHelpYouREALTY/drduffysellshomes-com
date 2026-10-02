@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import {
   CANONICAL_HOST,
   hostnameFromHeader,
+  isLegacyHost,
   shouldRedirectToCanonical,
 } from '@/lib/siteHost';
 
@@ -21,7 +22,8 @@ export function middleware(request: NextRequest) {
     url.protocol = 'https:';
     url.hostname = CANONICAL_HOST;
     url.port = '';
-    return NextResponse.redirect(url, 308);
+    // 301 for the former domain: GSC Change of Address validates on 301 only.
+    return NextResponse.redirect(url, isLegacyHost(host) ? 301 : 308);
   }
 
   const response = NextResponse.next();

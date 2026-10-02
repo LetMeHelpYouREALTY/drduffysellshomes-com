@@ -31,14 +31,19 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   async redirects() {
     return [
-      ...['painteddesertestates.com', 'drduffysellshomes.com', 'www.drduffysellshomes.com'].map(
-        (value) => ({
-          source: '/:path*',
-          has: [{ type: 'host' as const, value }],
-          destination: 'https://www.painteddesertestates.com/:path*',
-          permanent: true,
-        }),
-      ),
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'painteddesertestates.com' }],
+        destination: 'https://www.painteddesertestates.com/:path*',
+        permanent: true,
+      },
+      // Former domain: explicit 301 (GSC Change of Address rejects 308).
+      ...['drduffysellshomes.com', 'www.drduffysellshomes.com'].map((value) => ({
+        source: '/:path*',
+        has: [{ type: 'host' as const, value }],
+        destination: 'https://www.painteddesertestates.com/:path*',
+        statusCode: 301 as const,
+      })),
     ];
   },
   async rewrites() {
