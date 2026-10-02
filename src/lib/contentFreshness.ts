@@ -1,14 +1,17 @@
 /**
  * Honest freshness for sitemap lastmod and WebPage.dateModified.
- * Uses the git commit that Vercel deployed. Never invent a market statistic.
+ * CONTENT_UPDATED_AT is inlined at build (next.config.ts) from the deployed
+ * commit date, so lastmod only moves when content ships. Never request time.
  */
+const BUILD_STAMP = process.env.CONTENT_UPDATED_AT?.trim();
+const FALLBACK = new Date();
+
 export function contentUpdatedAt(): Date {
-  const fromVercel = process.env.VERCEL_GIT_COMMIT_DATE?.trim();
-  if (fromVercel) {
-    const parsed = new Date(fromVercel);
+  if (BUILD_STAMP) {
+    const parsed = new Date(BUILD_STAMP);
     if (!Number.isNaN(parsed.getTime())) return parsed;
   }
-  return new Date();
+  return FALLBACK;
 }
 
 export function contentUpdatedIsoDate(): string {

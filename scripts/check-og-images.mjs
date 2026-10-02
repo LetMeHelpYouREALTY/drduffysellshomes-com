@@ -17,7 +17,7 @@ for (const rel of files) {
   if (size >= maxBytes) throw new Error(`${rel} exceeds 5 MB (${size} bytes)`);
 }
 
-const origin = 'https://www.drduffysellshomes.com';
+const origin = 'https://www.painteddesertestates.com';
 if (origin === 'https://vercel.com') {
   throw new Error('Production origin must never be vercel.com');
 }

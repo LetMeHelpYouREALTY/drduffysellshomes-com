@@ -20,6 +20,9 @@ export {
   hostnameFromHeader,
   isApexSellerHost,
   isBlockedOgHost,
+  isLegacyHost,
+  LEGACY_HOSTS,
+  shouldRedirectToCanonical,
   siteOriginFromHostname,
   socialShareImages,
 } from '@/lib/siteHost';
@@ -27,7 +30,7 @@ export {
 /**
  * Absolute origin for the current hostname.
  * Canonicals, Open Graph URLs, JSON-LD, and sitemap entries must agree
- * on https://www.drduffysellshomes.com for this production site.
+ * on https://www.painteddesertestates.com for this production site.
  */
 export async function getSiteUrl(): Promise<string> {
   const headersList = await headers();

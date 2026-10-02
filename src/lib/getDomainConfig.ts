@@ -5,7 +5,7 @@ import { configLookupHostname, hostnameFromHeader } from '@/lib/siteHost';
 /**
  * Resolve the full DomainConfig for the current request hostname.
  * Merges domain-specific overrides on top of DEFAULT_CONFIG.
- * www.drduffysellshomes.com looks up the same config as the apex host.
+ * www.painteddesertestates.com looks up the same config as the apex host.
  */
 export async function getDomainConfig(): Promise<DomainConfig> {
   const headersList = await headers();

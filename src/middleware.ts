@@ -3,11 +3,12 @@ import type { NextRequest } from 'next/server';
 import {
   CANONICAL_HOST,
   hostnameFromHeader,
-  isApexSellerHost,
+  shouldRedirectToCanonical,
 } from '@/lib/siteHost';
 
 /**
- * 1. 308 apex → www so Google Search Console consolidates on the www host.
+ * 1. 308 apex and the former drduffysellshomes.com host → www.painteddesertestates.com,
+ *    path and query preserved, so Google consolidates on one host.
  * 2. Pass hostname to server components via x-forwarded-host.
  */
 export function middleware(request: NextRequest) {
@@ -15,7 +16,7 @@ export function middleware(request: NextRequest) {
     request.headers.get('x-forwarded-host') || request.headers.get('host'),
   );
 
-  if (isApexSellerHost(host)) {
+  if (shouldRedirectToCanonical(host)) {
     const url = request.nextUrl.clone();
     url.protocol = 'https:';
     url.hostname = CANONICAL_HOST;

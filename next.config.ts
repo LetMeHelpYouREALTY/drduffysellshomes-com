@@ -1,6 +1,26 @@
+import { execSync } from 'node:child_process';
 import type { NextConfig } from 'next';
 
+/**
+ * Sitemap lastmod / og:updated_time: the deployed commit's date, baked in at
+ * build so it stays stable between requests. Falls back to build time.
+ */
+function contentUpdatedAtBuild(): string {
+  try {
+    const iso = execSync('git log -1 --format=%cI', { stdio: ['ignore', 'pipe', 'ignore'] })
+      .toString()
+      .trim();
+    if (iso && !Number.isNaN(new Date(iso).getTime())) return new Date(iso).toISOString();
+  } catch {
+    // no git in build environment
+  }
+  return new Date().toISOString();
+}
+
 const nextConfig: NextConfig = {
+  env: {
+    CONTENT_UPDATED_AT: contentUpdatedAtBuild(),
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'imagedelivery.net' },
@@ -11,12 +31,14 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   async redirects() {
     return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'drduffysellshomes.com' }],
-        destination: 'https://www.drduffysellshomes.com/:path*',
-        permanent: true,
-      },
+      ...['painteddesertestates.com', 'drduffysellshomes.com', 'www.drduffysellshomes.com'].map(
+        (value) => ({
+          source: '/:path*',
+          has: [{ type: 'host' as const, value }],
+          destination: 'https://www.painteddesertestates.com/:path*',
+          permanent: true,
+        }),
+      ),
     ];
   },
   async rewrites() {

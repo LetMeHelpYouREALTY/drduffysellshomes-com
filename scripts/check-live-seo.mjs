@@ -3,7 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const origin = 'https://www.drduffysellshomes.com';
+const origin = 'https://www.painteddesertestates.com';
 
 function read(rel) {
   return readFileSync(join(root, rel), 'utf8');
@@ -94,8 +94,8 @@ if (!headings.includes('sellerH1') || !headings.includes('REALTOR®')) {
 }
 
 const sitemapSrc = read('src/lib/sitemapEntries.ts');
-if (!sitemapSrc.includes(origin.replace('https://', '')) && !read('src/lib/siteHost.ts').includes('www.drduffysellshomes.com')) {
-  throw new Error('Canonical host www.drduffysellshomes.com missing from siteHost');
+if (!sitemapSrc.includes(origin.replace('https://', '')) && !read('src/lib/siteHost.ts').includes('www.painteddesertestates.com')) {
+  throw new Error('Canonical host www.painteddesertestates.com missing from siteHost');
 }
 
 console.log(`OK: live SEO/GEO/AEO contract (${requiredAgents.length} AI crawlers, no fake ratings)`);

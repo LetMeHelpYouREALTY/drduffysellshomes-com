@@ -4,7 +4,7 @@
 
 ## Live SEO / GEO / AEO
 
-- [ ] Canonicals / Open Graph / JSON-LD stay on `https://www.drduffysellshomes.com`
+- [ ] Canonicals / Open Graph / JSON-LD stay on `https://www.painteddesertestates.com`
 - [ ] Sitemap locs use www only (`src/app/sitemap.ts` is live — do not add `public/sitemap.xml`)
 - [ ] Apex still 308-redirects to www (path + query preserved)
 - [ ] `robots.txt` still allows GPTBot, OAI-SearchBot, ChatGPT-User, Claude*, Perplexity*, Google-Extended, Applebot-Extended

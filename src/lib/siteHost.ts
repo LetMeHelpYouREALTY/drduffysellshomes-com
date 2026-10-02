@@ -1,8 +1,17 @@
 /** Apex host — 308-redirects to the www canonical. */
-export const APEX_HOST = 'drduffysellshomes.com';
+export const APEX_HOST = 'painteddesertestates.com';
 
 /** Google Search Console / sitemap / canonical host. */
-export const CANONICAL_HOST = 'www.drduffysellshomes.com';
+export const CANONICAL_HOST = 'www.painteddesertestates.com';
+
+/**
+ * Former domain. Every path 308-redirects to the same path on the
+ * canonical host so Google transfers signals (pair with GSC Change of Address).
+ */
+export const LEGACY_HOSTS: ReadonlySet<string> = new Set([
+  'drduffysellshomes.com',
+  'www.drduffysellshomes.com',
+]);
 
 export const PRODUCTION_SITE_URL = `https://${CANONICAL_HOST}`;
 
@@ -37,7 +46,10 @@ function originIsSafe(origin: string): boolean {
 /** Absolute origin for canonicals, Open Graph, and Twitter — never vercel.com. */
 export function getPublicSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, '');
-  if (fromEnv && originIsSafe(fromEnv)) return fromEnv;
+  // A stale env value pointing at the former domain must not leak into metadata.
+  if (fromEnv && originIsSafe(fromEnv) && !isLegacyHost(new URL(fromEnv).hostname)) {
+    return fromEnv;
+  }
   return PRODUCTION_SITE_URL;
 }
 
@@ -48,10 +60,15 @@ export function hostnameFromHeader(raw: string | null | undefined): string {
   return host;
 }
 
-/** www is canonical for this seller site; other mapped hosts stay as-is. */
+/** www.painteddesertestates.com is canonical; apex and former domain fold into it. */
 export function canonicalizeHostname(hostname: string): string {
   const host = hostname.split(':')[0].toLowerCase();
-  if (isBlockedOgHost(host) || host === APEX_HOST || host === CANONICAL_HOST) {
+  if (
+    isBlockedOgHost(host) ||
+    host === APEX_HOST ||
+    host === CANONICAL_HOST ||
+    LEGACY_HOSTS.has(host)
+  ) {
     return CANONICAL_HOST;
   }
   return host;
@@ -67,6 +84,15 @@ export function siteOriginFromHostname(hostname: string): string {
 
 export function isApexSellerHost(hostname: string): boolean {
   return hostname.split(':')[0].toLowerCase() === APEX_HOST;
+}
+
+export function isLegacyHost(hostname: string): boolean {
+  return LEGACY_HOSTS.has(hostname.split(':')[0].toLowerCase());
+}
+
+/** Apex or former domain: both 308 to the canonical www host. */
+export function shouldRedirectToCanonical(hostname: string): boolean {
+  return isApexSellerHost(hostname) || isLegacyHost(hostname);
 }
 
 /** DOMAIN_MAP keys are stored without www. */

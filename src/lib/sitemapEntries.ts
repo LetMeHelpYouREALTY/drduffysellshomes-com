@@ -5,16 +5,8 @@ import { contentUpdatedAt } from '@/lib/contentFreshness';
 
 export { PRODUCTION_SITE_URL };
 
-type Freq = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
-
-const STATIC_PAGES: { path: string; changeFrequency: Freq; priority: number }[] = [
-  { path: '/', changeFrequency: 'weekly', priority: 1 },
-  { path: '/neighborhoods', changeFrequency: 'weekly', priority: 0.9 },
-  { path: '/sell', changeFrequency: 'monthly', priority: 0.9 },
-  { path: '/listings', changeFrequency: 'daily', priority: 0.9 },
-  { path: '/contact', changeFrequency: 'monthly', priority: 0.8 },
-  { path: '/about', changeFrequency: 'monthly', priority: 0.7 },
-];
+// Google ignores changefreq and priority; only loc and an honest lastmod matter.
+const STATIC_PAGES = ['/', '/neighborhoods', '/sell', '/listings', '/contact', '/about'];
 
 function originFromBase(baseUrl: string): string {
   return baseUrl.replace(/\/+$/, '');
@@ -30,24 +22,20 @@ function loc(baseUrl: string, path: string): string {
  * Absolute sitemap entries for Google Search Console.
  * Homepage loc has no trailing slash so it matches page canonicals
  * (`trailingSlash: false` in next.config.ts). Production locs use
- * https://www.drduffysellshomes.com only.
+ * https://www.painteddesertestates.com only.
  */
 export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
   const lastModified = contentUpdatedAt();
 
-  const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map((page) => ({
-    url: loc(baseUrl, page.path),
+  const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map((path) => ({
+    url: loc(baseUrl, path),
     lastModified,
-    changeFrequency: page.changeFrequency,
-    priority: page.priority,
   }));
 
   const neighborhoodEntries: MetadataRoute.Sitemap = getAllNeighborhoods().map(
     (neighborhood) => ({
       url: loc(baseUrl, `/neighborhoods/${neighborhood.slug}`),
       lastModified,
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
     }),
   );
 
