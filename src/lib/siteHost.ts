@@ -19,7 +19,7 @@ export const OG_IMAGE_SIZE = { width: 1200, height: 630 } as const;
 export const OG_IMAGE_PATH = '/og/opengraph.jpg';
 export const TWITTER_IMAGE_PATH = '/og/twitter.jpg';
 export const OG_IMAGE_ALT =
-  'Luxury Las Vegas Valley home — Dr. Jan Duffy, REALTOR® at Berkshire Hathaway HomeServices Nevada Properties. Call 702-903-1952.';
+  'Luxury Las Vegas Valley home — Dr. Jan Duffy, REALTOR® at Berkshire Hathaway HomeServices Nevada Properties. Call 702-500-1955.';
 
 const BLOCKED_OG_HOSTS = new Set(['vercel.com', 'www.vercel.com']);
 
