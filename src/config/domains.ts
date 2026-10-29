@@ -110,7 +110,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     keywords: ['Eagle Hills', 'Eagle Hills homes', 'Las Vegas homes'],
     focus: 'family',
     heroTitle: 'Eagle Hills Homes for Sale',
-    heroSubtitle: 'Established neighborhood with mountain views and easy access to the Las Vegas Strip.',
+    heroSubtitle: 'Older neighborhood with mountain views and easy access to the Las Vegas Strip.',
   },
 
   'emersonestateshomes.com': {

@@ -39,7 +39,7 @@ export const AGENT = {
   // Links
   calendly: 'https://calendly.com/drjanduffy/listing-consultation',
   realscoutAgentId: 'drjanduffy',
-  googleReviews: 'https://g.page/r/CYmVqofF2JYBEAI/review',
+  googleReviews: 'https://search.google.com/local/writereview?placeid=ChIJ7XLw8ta5yIARjTZPjgHJWVQ',
   mapsDirectionsUrl:
     'https://maps.google.com/?q=5550+Painted+Mirage+Rd+Ste+140A,+Las+Vegas,+NV+89149',
   googleMapsEmbed:
