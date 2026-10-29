@@ -66,7 +66,7 @@ export const AGENT = {
     'PhD Researcher',
     'Certified Luxury Home Marketing Specialist (CLHMS)',
     'Over $500M in career sales',
-    'Top 1% of Las Vegas REALTORS®',
+    '5.0★ from 50 Realtor.com reviews',
     'Berkshire Hathaway HomeServices Chairman\'s Circle',
   ],
 } as const;
