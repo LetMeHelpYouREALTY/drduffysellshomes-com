@@ -11,8 +11,8 @@ export const AGENT = {
   brokerageShort: 'BHHS Nevada Properties',
 
   // NAP — must match GBP exactly
-  phone: '702-903-1952',
-  phoneTel: '+17029031952',
+  phone: '702-500-1955',
+  phoneTel: '+17025001955',
   email: 'DrJanDuffy@gmail.com',
   address: {
     street: '5550 Painted Mirage Rd Ste 140A',

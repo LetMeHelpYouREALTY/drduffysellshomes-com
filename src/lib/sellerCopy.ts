@@ -34,7 +34,7 @@ export function getSellerFaqs(
     },
     {
       question: `What does it cost to list my ${neighborhoodName} home?`,
-      answer: `Sellers pay a listing commission agreed in writing. Buyers do not pay Dr. Duffy to represent them as listing agent. You receive a marketing plan, MLS exposure, and negotiation through closing. Call 702-903-1952 for a listing consultation with net-sheet numbers for your address.`,
+      answer: `Sellers pay a listing commission agreed in writing. Buyers do not pay Dr. Duffy to represent them as listing agent. You receive a marketing plan, MLS exposure, and negotiation through closing. Call 702-500-1955 for a listing consultation with net-sheet numbers for your address.`,
     },
     {
       question: `Should I make repairs before listing in ${neighborhoodName}?`,

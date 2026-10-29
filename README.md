@@ -44,7 +44,7 @@ Must match Google Business Profile:
 - Dr. Jan Duffy
 - Berkshire Hathaway HomeServices Nevada Properties
 - 5550 Painted Mirage Rd Ste 140A, Las Vegas, NV 89149
-- 702-903-1952
+- 702-500-1955
 
 JSON-LD `RealEstateAgent` + `LocalBusiness` is on every page. FAQ schema is on seller FAQs.
 
