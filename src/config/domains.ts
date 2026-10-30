@@ -40,7 +40,7 @@ export const DEFAULT_CONFIG: DomainConfig = {
   state: 'NV',
   zip: '89149',
   description:
-    'Sell your Las Vegas home with Dr. Jan Duffy, REALTOR® at Berkshire Hathaway HomeServices Nevada Properties. Neighborhood listing plans for Summerlin, Skye Canyon, Henderson, Centennial Hills, and every major valley community.',
+    'Sell your Las Vegas home with Dr. Jan Duffy, REALTOR® licensed since 2008. Neighborhood listing plans for Summerlin, Skye Canyon, Henderson, Centennial Hills, and every major valley community.',
   keywords: [
     'sell home Las Vegas',
     'Las Vegas listing agent',
@@ -296,11 +296,11 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
   'askberkshirehomes.com': {
     name: 'Ask Berkshire Homes',
     neighborhood: 'Las Vegas Valley',
-    description: 'Ask Berkshire — your direct line to homes across the Las Vegas Valley with Dr. Jan Duffy, BHHS.',
+    description: 'Ask Berkshire — your direct line to homes across the Las Vegas Valley with Dr. Jan Duffy.',
     keywords: ['Berkshire Hathaway homes', 'BHHS Las Vegas', 'ask Berkshire'],
     focus: 'general',
     heroTitle: 'Ask Berkshire — Las Vegas Homes',
-    heroSubtitle: 'Direct access to every listing in the Las Vegas Valley through Berkshire Hathaway HomeServices.',
+    heroSubtitle: 'Direct access to every listing in the Las Vegas Valley with Dr. Jan Duffy.',
   },
 
   'askdrjanduffy.com': {
@@ -310,7 +310,7 @@ export const DOMAIN_MAP: Record<string, Partial<DomainConfig>> = {
     keywords: ['Dr Jan Duffy', 'Las Vegas realtor', 'ask a realtor'],
     focus: 'general',
     heroTitle: 'Ask Dr. Jan Duffy',
-    heroSubtitle: 'Your real estate questions answered by a trusted Las Vegas expert with 20+ years of experience.',
+    heroSubtitle: 'Your real estate questions answered by a REALTOR® licensed since 2008 · 35 years in Las Vegas.',
   },
 
   'calldrboyle.com': {

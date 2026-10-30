@@ -28,7 +28,7 @@ export default function SellerProcess({ neighborhood }: { neighborhood: string }
           ))}
         </div>
         <p className="text-center text-sm text-primary-700 mt-8">
-          {AGENT.name} · {AGENT.brokerage} · {AGENT.address.full} ·{' '}
+          {AGENT.name} · {AGENT.address.full} ·{' '}
           <a href={`tel:${AGENT.phoneTel}`} className="text-bhhs-maroon font-semibold">
             {AGENT.phone}
           </a>

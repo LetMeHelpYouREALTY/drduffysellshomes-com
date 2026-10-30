@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
   return buildPageMetadata({
     title: aboutH1(place),
-    description: `${AGENT.shortBio} ${AGENT.name} sells homes in ${place} and across Las Vegas neighborhoods. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}.`,
+    description: `${AGENT.shortBio} ${AGENT.name} sells homes in ${place} and across Las Vegas neighborhoods. ${AGENT.address.full}. Call ${AGENT.phone}.`,
     path: '/about',
     baseUrl,
     keywords: [
@@ -40,7 +40,7 @@ export default async function AboutPage() {
         entities="page"
         config={config}
         pageTitle={aboutH1(place)}
-        pageDescription={`${AGENT.shortBio} ${AGENT.name} sells homes in ${place} and across Las Vegas neighborhoods. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}.`}
+        pageDescription={`${AGENT.shortBio} ${AGENT.name} sells homes in ${place} and across Las Vegas neighborhoods. ${AGENT.address.full}. Call ${AGENT.phone}.`}
         path="/about"
         breadcrumbs={[
           { name: 'Sell Your Home', path: '/' },
@@ -97,14 +97,6 @@ export default async function AboutPage() {
                       <span className="text-primary-700">Address:</span>{' '}
                       <span className="text-primary-700">{AGENT.address.full}</span>
                     </p>
-                    <p>
-                      <span className="text-primary-700">License:</span>{' '}
-                      <span className="text-primary-700">{AGENT.license}</span>
-                    </p>
-                    <p>
-                      <span className="text-primary-700">Brokerage:</span>{' '}
-                      <span className="text-primary-700">{AGENT.brokerage}</span>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -115,7 +107,7 @@ export default async function AboutPage() {
                 Who is {AGENT.fullName}, REALTOR® in Las Vegas?
               </h2>
               <p className="text-sm text-bhhs-maroon font-semibold mb-6">
-                {AGENT.title} | {AGENT.brokerage}
+                {AGENT.title}
               </p>
 
               <div className="space-y-4 text-primary-700">
@@ -127,7 +119,7 @@ export default async function AboutPage() {
                   home is live.
                 </p>
                 <p>
-                  As a member of {AGENT.brokerage}, Dr. Duffy pairs that neighborhood listing
+                  Dr. Duffy pairs that neighborhood listing
                   work with a national referral network — useful when the buyer for your{' '}
                   {place} home is relocating, not already on your street.
                 </p>

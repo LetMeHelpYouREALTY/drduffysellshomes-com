@@ -5,7 +5,7 @@ export default function NapBar() {
     <div className="bg-primary-900 text-primary-200 text-xs sm:text-sm">
       <div className="container-wide mx-auto px-4 sm:px-6 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
         <p>
-          {AGENT.name} · {AGENT.brokerage} · {AGENT.address.full}
+          {AGENT.name} · {AGENT.address.full}
         </p>
         <p>
           <a href={`tel:${AGENT.phoneTel}`} className="text-bhhs-gold font-semibold">

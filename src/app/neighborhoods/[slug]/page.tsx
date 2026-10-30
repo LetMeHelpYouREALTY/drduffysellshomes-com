@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const baseUrl = await getSiteUrl();
   return buildPageMetadata({
     title: sellerH1(neighborhood.name, neighborhood.city),
-    description: `${neighborhood.headline}. ${neighborhood.subhead} ${AGENT.name}, ${AGENT.brokerage}, lists homes in ${neighborhood.name}. Call ${AGENT.phone}. Office: ${AGENT.address.full}.`,
+    description: `${neighborhood.headline}. ${neighborhood.subhead} ${AGENT.name}, REALTOR®, lists homes in ${neighborhood.name}. Call ${AGENT.phone}. Office: ${AGENT.address.full}.`,
     path: `/neighborhoods/${neighborhood.slug}`,
     baseUrl,
     keywords: [
@@ -131,7 +131,7 @@ export default async function NeighborhoodPage({ params }: PageProps) {
           <aside className="p-6 rounded-xl bg-primary-50 border border-primary-100 h-fit">
             <h2 className="font-display font-bold text-primary-900 mb-4">{officeH2()}</h2>
             <p className="text-sm text-primary-700 mb-4">
-              {AGENT.name} · {AGENT.brokerage}
+              {AGENT.name}, REALTOR®
             </p>
             <address className="not-italic text-sm text-primary-700 space-y-2 mb-6">
               <p>{AGENT.address.full}</p>

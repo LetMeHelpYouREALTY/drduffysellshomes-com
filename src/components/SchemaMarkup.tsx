@@ -53,7 +53,7 @@ export default async function SchemaMarkup({
     longitude: AGENT.geo.longitude,
   };
 
-  const personDescription = `${AGENT.name} is a REALTOR® (Nevada license ${AGENT.license}) with ${AGENT.brokerage}. Listing representation across the Las Vegas Valley. Office: ${AGENT.address.full}.`;
+  const personDescription = `${AGENT.name} is a Nevada-licensed REALTOR®. Listing representation across the Las Vegas Valley. Office: ${AGENT.address.full}.`;
 
   const services = [
     'Residential Home Listing',

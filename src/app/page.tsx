@@ -81,7 +81,7 @@ export default async function HomePage() {
               },
               {
                 title: SELLER_FEATURE_H3[5].title,
-                desc: `${AGENT.brokerage} tools plus a listing agent who sells ${place} every week. Call ${AGENT.phone}.`,
+                desc: `A listing agent who sells ${place} every week. Call ${AGENT.phone}.`,
               },
             ].map((feature) => (
               <div
