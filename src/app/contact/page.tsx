@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const place = findNeighborhoodForName(config.neighborhood)?.name ?? config.neighborhood;
   return buildPageMetadata({
     title: contactH1(place),
-    description: `Book a ${place} listing consultation or market strategy call with ${AGENT.name}. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`,
+    description: `Book a ${place} listing consultation or market strategy call with ${AGENT.name}. ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`,
     path: '/contact',
     baseUrl,
     keywords: [
@@ -39,7 +39,7 @@ export default async function ContactPage() {
         entities="page"
         config={config}
         pageTitle={contactH1(place)}
-        pageDescription={`Book a ${place} listing consultation or market strategy call with ${AGENT.name}. ${AGENT.brokerage}, ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`}
+        pageDescription={`Book a ${place} listing consultation or market strategy call with ${AGENT.name}. ${AGENT.address.full}. Call ${AGENT.phone}. Hours: ${AGENT.hoursDisplay[0].days} ${AGENT.hoursDisplay[0].time}.`}
         path="/contact"
         breadcrumbs={[
           { name: 'Sell Your Home', path: '/' },
@@ -115,7 +115,7 @@ export default async function ContactPage() {
               <div className="bg-primary-50 rounded-xl p-6">
                 <h2 className="font-display font-bold text-primary-900 mb-4">{officeH2()}</h2>
                 <address className="not-italic text-sm text-primary-700 space-y-1 mb-4">
-                  <p className="font-semibold">{AGENT.brokerage}</p>
+                  <p className="font-semibold">{AGENT.name}</p>
                   <p>{AGENT.address.full}</p>
                 </address>
                 <div className="space-y-1 text-sm text-primary-600">

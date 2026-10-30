@@ -68,7 +68,7 @@ export function faqH2(place: string): string {
 }
 
 export function officeH2(): string {
-  return `${AGENT.brokerage} office at ${AGENT.address.full}`;
+  return `Office at ${AGENT.address.full}`;
 }
 
 export function regionSellH2(regionLabel: string): string {
@@ -105,8 +105,8 @@ export const SELLER_FEATURE_H3 = [
     descKey: 'Net-sheet before you sign',
   },
   {
-    title: 'What does Berkshire Hathaway add to a local listing?',
-    descKey: 'BHHS reach, local listing',
+    title: 'What does a national referral network add to a local listing?',
+    descKey: 'National reach, local listing',
   },
 ] as const;
 

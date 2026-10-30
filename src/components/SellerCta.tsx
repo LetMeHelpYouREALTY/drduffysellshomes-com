@@ -31,7 +31,7 @@ export default function SellerCta({
           </a>
         </div>
         <p className="mt-6 text-sm text-primary-300">
-          {AGENT.brokerage} · {AGENT.address.full}
+          {AGENT.name} · {AGENT.address.full}
         </p>
       </div>
     </section>
