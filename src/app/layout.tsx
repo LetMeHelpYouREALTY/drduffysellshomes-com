@@ -14,6 +14,8 @@ import { getSellerHero } from '@/lib/sellerCopy';
 import { REALSCOUT_SCRIPT_SRC } from '@/components/RealScoutWidget';
 import CalendlyBadge from '@/components/CalendlyBadge';
 import { CALENDLY_SCRIPT_SRC, CALENDLY_WIDGET_CSS } from '@/config/calendly';
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights as VercelSpeedInsights } from "@vercel/speed-insights/next";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -142,6 +144,8 @@ export default async function RootLayout({
         <Header config={config} />
         <main className="flex-1">{children}</main>
         <Footer config={config} />
+        <VercelAnalytics />
+        <VercelSpeedInsights />
       </body>
     </html>
   );
